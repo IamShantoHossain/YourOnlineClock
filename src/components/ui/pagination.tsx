@@ -16,11 +16,7 @@ export function Pagination({ totalPages }: PaginationProps) {
   const currentPage = Number(searchParams.get("page")) || 1;
 
   const navigateToPage = (page: number) => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set("page", page.toString());
-    router.push(`${pathname}?${params.toString()}`, {
-      scroll: false,
-    });
+    router.push("?page=" + page);
   };
 
   if (totalPages <= 1) return null;

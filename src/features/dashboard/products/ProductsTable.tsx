@@ -1,4 +1,3 @@
-import { Pagination } from "@/components/ui/pagination";
 import {
   Table,
   TableBody,
@@ -7,224 +6,113 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { format } from "date-fns";
 
+import { getAllProducts } from "@/action/products.actions";
+import { Badge } from "@/components/ui/badge";
+import { Pagination } from "@/components/ui/pagination";
 import { P } from "@/components/ui/typography";
+import { format } from "date-fns";
 import Image from "next/image";
-import ProductSearch from "./ProductSearch";
 
-const products = [
-  {
-    id: "prd-001",
-    name: "Nike Air Max",
-    size: "42",
-    category: "Shoes",
-    brand: "Nike",
-    price: 129.99,
-    imageUrls: ["/images/products/nike-air-max.jpg"],
-    createdAt: "2025-01-15T10:30:00Z",
-    user: {
-      fullName: "John Doe",
+const ProductsTable = async ({
+  params,
+}: {
+  params: { [key: string]: string | undefined };
+}) => {
+  const { data, meta } = await getAllProducts({
+    params: {
+      per_page: +(params?.per_page || 10),
+      page: +(params?.page || 1),
+      q: params.q ?? "",
     },
-    order: {
-      deliveryStatus: "DELIVERED",
-    },
-  },
-  {
-    id: "prd-002",
-    name: "Adidas Ultraboost",
-    size: "44",
-    category: "Shoes",
-    brand: "Adidas",
-    price: 149.99,
-    imageUrls: ["/images/products/ultraboost.jpg"],
-    createdAt: "2025-02-02T14:20:00Z",
-    user: {
-      fullName: "Sarah Khan",
-    },
-    order: {
-      deliveryStatus: "PENDING",
-    },
-  },
-  {
-    id: "prd-003",
-    name: "Puma Running Tee",
-    size: "L",
-    category: "Clothing",
-    brand: "Puma",
-    price: 39.99,
-    imageUrls: ["/images/products/puma-tee.jpg"],
-    createdAt: "2025-02-10T09:00:00Z",
-    user: {
-      fullName: "Alex Smith",
-    },
-    order: {
-      deliveryStatus: "PROCESSING",
-    },
-  },
-  {
-    id: "prd-001",
-    name: "Nike Air Max",
-    size: "42",
-    category: "Shoes",
-    brand: "Nike",
-    price: 129.99,
-    imageUrls: ["/images/products/nike-air-max.jpg"],
-    createdAt: "2025-01-15T10:30:00Z",
-    user: {
-      fullName: "John Doe",
-    },
-    order: {
-      deliveryStatus: "DELIVERED",
-    },
-  },
-  {
-    id: "prd-002",
-    name: "Adidas Ultraboost",
-    size: "44",
-    category: "Shoes",
-    brand: "Adidas",
-    price: 149.99,
-    imageUrls: ["/images/products/ultraboost.jpg"],
-    createdAt: "2025-02-02T14:20:00Z",
-    user: {
-      fullName: "Sarah Khan",
-    },
-    order: {
-      deliveryStatus: "PENDING",
-    },
-  },
-  {
-    id: "prd-003",
-    name: "Puma Running Tee",
-    size: "L",
-    category: "Clothing",
-    brand: "Puma",
-    price: 39.99,
-    imageUrls: ["/images/products/puma-tee.jpg"],
-    createdAt: "2025-02-10T09:00:00Z",
-    user: {
-      fullName: "Alex Smith",
-    },
-    order: {
-      deliveryStatus: "PROCESSING",
-    },
-  },
-  {
-    id: "prd-001",
-    name: "Nike Air Max",
-    size: "42",
-    category: "Shoes",
-    brand: "Nike",
-    price: 129.99,
-    imageUrls: ["/images/products/nike-air-max.jpg"],
-    createdAt: "2025-01-15T10:30:00Z",
-    user: {
-      fullName: "John Doe",
-    },
-    order: {
-      deliveryStatus: "DELIVERED",
-    },
-  },
-  {
-    id: "prd-002",
-    name: "Adidas Ultraboost",
-    size: "44",
-    category: "Shoes",
-    brand: "Adidas",
-    price: 149.99,
-    imageUrls: ["/images/products/ultraboost.jpg"],
-    createdAt: "2025-02-02T14:20:00Z",
-    user: {
-      fullName: "Sarah Khan",
-    },
-    order: {
-      deliveryStatus: "PENDING",
-    },
-  },
-  {
-    id: "prd-003",
-    name: "Puma Running Tee",
-    size: "L",
-    category: "Clothing",
-    brand: "Puma",
-    price: 39.99,
-    imageUrls: ["/images/products/puma-tee.jpg"],
-    createdAt: "2025-02-10T09:00:00Z",
-    user: {
-      fullName: "Alex Smith",
-    },
-    order: {
-      deliveryStatus: "PROCESSING",
-    },
-  },
-];
+  });
 
-const meta = {
-  totalPage: 30,
-  currentPage: 1,
-  total: 30,
-};
+  const products = data?.products || [];
 
-const ProductsTable = () => {
   return (
     <div className="space-y-3">
-      <ProductSearch />
       <Table className="">
         <TableHeader>
           <TableRow>
             <TableHead>Product ID</TableHead>
             <TableHead>Product</TableHead>
-            <TableHead className="pl-8">User</TableHead>
-            <TableHead>Brand</TableHead>
-            <TableHead className="text-center">Price</TableHead>
-            {/* New Table Head */}
-            <TableHead className="text-center">Created At</TableHead>
+            <TableHead className="pl-10">Category</TableHead>
+            <TableHead className="text-center">Brand</TableHead>
+            <TableHead>Created At</TableHead>
             {/* <TableHead className="text-center">Actions</TableHead> */}
           </TableRow>
         </TableHeader>
         <TableBody>
           {products.map((product) => (
             <TableRow key={product.id}>
-              <TableCell className="font-medium">{product.id}</TableCell>
+              <TableCell className="">
+                <div className="flex items-center gap-0.5">
+                  <span className="text-primary">#</span>
+                  <p>{product.id}</p>
+                </div>
+              </TableCell>
               <TableCell className="flex items-center gap-2">
                 <Image
                   unoptimized
                   height={900}
                   width={900}
-                  src={product.imageUrls[0]}
+                  src={product.images[0].src}
                   alt={product.name}
-                  className="h-8 w-8 rounded-md object-cover"
+                  className="h-8 w-8 rounded-sm object-cover"
                 />
                 <div>
-                  <P className="">
-                    {product.name} | {product.size}
-                  </P>
+                  <P className="max-w-xl truncate">{product.name}</P>
                   <div className="flex gap-1">
                     <span className="text-muted-foreground text-sm">
-                      {product.category}
-                    </span>
-                    |
-                    <span className="text-muted-foreground text-sm">
-                      {product.brand}
+                      ${product.price.toLocaleString() || "_"}
                     </span>
                   </div>
                 </div>
               </TableCell>
-              <TableCell className="pl-8">{product?.user?.fullName}</TableCell>
-              <TableCell>{product.brand}</TableCell>
-              <TableCell className="text-center">
-                ${product.price.toLocaleString()}
+
+              <TableCell className="pl-10">
+                <div className="flex max-w-sm flex-col gap-2">
+                  {product.categories.map((category) => (
+                    <Badge
+                      key={category.id}
+                      className="bg-primary/40 text-primary-foreground"
+                      variant={"secondary"}
+                    >
+                      {category.name}
+                    </Badge>
+                  ))}
+                </div>
               </TableCell>
 
-              <TableCell className="text-center">
-                {format(new Date(product.createdAt), "dd/MM/yyyy HH:mm")}
+              <TableCell className="">
+                <div className="flex max-w-sm flex-col gap-2">
+                  {product.brands.length > 0 ? (
+                    product.brands.map((brand) => (
+                      <Badge
+                        key={brand.id}
+                        className="bg-primary/40 text-primary-foreground"
+                        variant={"secondary"}
+                      >
+                        {brand.name}
+                      </Badge>
+                    ))
+                  ) : (
+                    <span className="text-muted-foreground text-center text-sm">
+                      __
+                    </span>
+                  )}
+                </div>
+              </TableCell>
+              <TableCell>
+                <P className="text-muted-foreground text-center text-sm">
+                  {format(new Date(product.date_created), "PPp")}
+                </P>
               </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
-      <Pagination totalPages={meta?.totalPage ?? 0} />
+      <Pagination totalPages={meta?.totalPages ?? 1} />
     </div>
   );
 };

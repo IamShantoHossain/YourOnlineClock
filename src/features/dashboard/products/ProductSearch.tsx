@@ -1,3 +1,4 @@
+"use client";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -8,12 +9,33 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useDebounce } from "use-debounce";
 
 const ProductSearch = () => {
+  const [searchTerm, setSetSearchTerm] = useState("");
+
+  const [searchDebounce] = useDebounce(searchTerm, 300);
+  const router = useRouter();
+
+  useEffect(() => {
+    history.pushState(null, "", `?q=${searchTerm}`);
+    router.push("?q=" + searchTerm);
+  }, [searchDebounce]);
+
+  const searchParams = useSearchParams();
+
   return (
     <div className="flex justify-between gap-3">
       <div className="w-full">
-        <Input placeholder="Search categories..." className="w-full" />
+        <Input
+          placeholder="Search categories..."
+          className="w-full"
+          defaultValue={searchParams.get("query")?.toString()}
+          value={searchTerm}
+          onChange={(e) => setSetSearchTerm(e.target.value)}
+        />
       </div>
 
       <Select>
