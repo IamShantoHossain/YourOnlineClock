@@ -1,5 +1,6 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import React from "react";
+import { TableCell, TableRow } from "../ui/table";
 
 // --- Updated Types for Sparse Configuration ---
 
@@ -42,58 +43,17 @@ export const SkeletonTable: React.FC<SkeletonTableProps> = ({
   const skeletonRows = Array.from({ length: rows });
   const skeletonColumns = Array.from({ length: columns });
 
-  // Fallback defaults for standard header and body skeletons
-  const DEFAULT_HEADER_CLASS = "h-4 w-24";
-  const DEFAULT_BODY_CLASS = "h-4 w-full";
-
-  // Helper function to get the final class name for a given column index
-  const getClassName = (colIndex: number, type: "header" | "body"): string => {
-    // 1. Get the specific config for this column index (if provided)
-    const specificConfig = columnConfigs[String(colIndex)];
-
-    let className: string | undefined;
-
-    if (type === "header") {
-      // 2. Prioritize: Specific > Default > Global Fallback
-      className =
-        specificConfig?.headerClassName ||
-        defaultColumnConfig?.headerClassName ||
-        DEFAULT_HEADER_CLASS;
-    } else {
-      // 2. Prioritize: Specific > Default > Global Fallback
-      className =
-        specificConfig?.bodyClassName ||
-        defaultColumnConfig?.bodyClassName ||
-        DEFAULT_BODY_CLASS;
-    }
-
-    return className;
-  };
-
   return (
-    <div className="w-full overflow-x-auto">
-      <table className="w-full table-auto border-collapse">
-        <thead>
-          <tr className="bg-muted/30">
-            {skeletonColumns.map((_, colIndex) => (
-              <th key={colIndex} className="p-2">
-                <Skeleton className={getClassName(colIndex, "header")} />
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {skeletonRows.map((_, rowIndex) => (
-            <tr key={rowIndex} className="border-border border-b">
-              {skeletonColumns.map((_, colIndex) => (
-                <td key={colIndex} className="p-2">
-                  <Skeleton className={getClassName(colIndex, "body")} />
-                </td>
-              ))}
-            </tr>
+    <>
+      {skeletonRows.map((_, rowIndex) => (
+        <TableRow key={rowIndex}>
+          {skeletonColumns.map((_, colIndex) => (
+            <TableCell key={colIndex}>
+              <Skeleton className={"h-4"} />
+            </TableCell>
           ))}
-        </tbody>
-      </table>
-    </div>
+        </TableRow>
+      ))}
+    </>
   );
 };

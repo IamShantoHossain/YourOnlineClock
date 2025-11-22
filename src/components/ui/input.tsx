@@ -11,7 +11,7 @@ function Input({ className, type, ...props }: React.ComponentProps<"input">) {
     type === "password" ? "div" : React.Fragment;
 
   return (
-    <Wrapper className="relative">
+    <Wrapper {...(type == "password" ? { className: "relative" } : {})}>
       {type === "password" && (
         <Button
           onClick={() => setShowPassword((prev) => !prev)}

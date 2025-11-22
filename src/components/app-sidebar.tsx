@@ -3,6 +3,7 @@ import * as React from "react";
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarHeader,
@@ -12,12 +13,16 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 import assets from "@/lib/assets";
+import { AvatarImage } from "@radix-ui/react-avatar";
 import Image from "next/image";
 import Link from "next/link";
 import { BsBoxSeamFill, BsGear } from "react-icons/bs";
 import { LuLayoutGrid } from "react-icons/lu";
+import SidebarSignoutButton from "./SidebarSignoutButton";
+import { Avatar, AvatarFallback } from "./ui/avatar";
+import { Card } from "./ui/card";
+import { Muted, P } from "./ui/typography";
 
-// This is sample data.
 const data = {
   navMain: [
     {
@@ -73,9 +78,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                       href={item.url}
                       className="h-10 pl-3"
                     >
-                      <a href={item.url}>
+                      <Link href={`/admin/${item.url}`}>
                         <item.icon className="size-4!" /> {item.title}
-                      </a>
+                      </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}
@@ -84,6 +89,24 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           </SidebarGroup>
         ))}
       </SidebarContent>
+      <SidebarFooter>
+        <SidebarSignoutButton />
+        <Card className="bg-card/10 border-border/40 flex flex-row items-center gap-2 border-2 p-2">
+          <Avatar className="size-10">
+            <AvatarImage
+              src={assets.logoUrl as unknown as string}
+              height={800}
+              width={800}
+              alt="Logo"
+            />
+            <AvatarFallback>SM</AvatarFallback>
+          </Avatar>
+          <div className="flex flex-col gap-0">
+            <P>Robin</P>
+            <Muted>Admin</Muted>
+          </div>
+        </Card>
+      </SidebarFooter>
       <SidebarRail />
     </Sidebar>
   );

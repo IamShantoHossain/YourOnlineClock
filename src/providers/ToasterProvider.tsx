@@ -23,13 +23,14 @@ function ToasterProvider({ children }: { children: ReactNode }) {
         theme={currentTheme}
         swipeDirections={["right", "top", "bottom"]}
         position="top-right"
-        // toastOptions={{
-        //   classNames: {
-        //     success: "!border-[var(--success-border)]/10",
-        //     error: "!border-[var(--error-border)]/10",
-        //     warning: "!border-[var(--warning-border)]/10",
-        //   },
-        // }}
+        toastOptions={{
+          classNames: {
+            success: "!border-[var(--success-border)]/10",
+            error: "!border-[var(--error-border)]/10",
+            warning: "!border-[var(--warning-border)]/10",
+            loading: "!border-[var(--card)]/10",
+          },
+        }}
       />
       {children}
     </>

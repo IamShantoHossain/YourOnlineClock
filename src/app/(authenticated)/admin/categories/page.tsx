@@ -1,18 +1,20 @@
-import { H3, P } from "@/components/ui/typography";
-import CategoryAnalytic from "@/features/Category/Components/CategoryAnalytic";
+import { H3 } from "@/components/ui/typography";
+import CategorySearch from "@/features/Category/Components/CategorySearch";
 import CategoryTables from "@/features/Category/Components/CategoryTables";
+import DashboardAnalytics from "@/features/dashboard/DashboardAnalytics";
 
 const Page = async () => {
   return (
     <div className="space-y-3">
       <div className="flex justify-between">
         <div>
-          <H3>Item Management</H3>
-          <P className="text-muted-foreground">Manage items </P>
+          <H3>Analytic</H3>
         </div>
       </div>
 
-      <CategoryAnalytic />
+      <DashboardAnalytics />
+
+      <CategorySearch />
 
       <CategoryTables />
     </div>

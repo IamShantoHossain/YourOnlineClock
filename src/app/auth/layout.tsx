@@ -5,9 +5,11 @@ import React from "react";
 const Layout = async ({ children }: { children?: React.ReactNode }) => {
   const { session } = await getCurrentUser();
 
-  if (!session) redirect("/auth/login");
+  console.log({ session });
 
-  return <div>{children}</div>;
+  if (session) redirect("/admin/dashboard");
+
+  return children;
 };
 
 export default Layout;

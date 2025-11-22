@@ -10,7 +10,7 @@ import { H4 } from "@/components/ui/typography";
 
 import React from "react";
 
-const Layout = ({ children }: { children?: React.ReactNode }) => {
+const Layout = async ({ children }: { children?: React.ReactNode }) => {
   return (
     <SidebarProvider className="flex w-full overflow-hidden">
       <AppSidebar />

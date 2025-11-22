@@ -1,18 +1,12 @@
-import { getAllProducts } from "@/action/products.actions";
+"use client";
 import { Badge } from "@/components/ui/badge";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { P } from "@/components/ui/typography";
+import { Product } from "@/types/product.types";
 import { format } from "date-fns";
 import Image from "next/image";
 
-const ProductTableData = async () => {
-  const { data, meta } = await getAllProducts({
-    params: {
-      per_page: 10,
-    },
-  });
-
-  const products = data?.products || [];
+const ProductTableData = async ({ products }: { products: Product[] }) => {
   return (
     <>
       {products.map((product) => (

@@ -1,4 +1,5 @@
 "use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -17,39 +18,42 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import assets from "@/lib/assets";
+import { handleRTKMutation } from "@/lib/handleRTKMutation";
+
 import { cn } from "@/lib/utils";
+import { useLoginAdminMutation } from "@/redux/api/authAPi";
+import { authSchema, LoginInputT } from "@/schema/auth.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-
-const loginSchema = z.object({
-  email: z
-    .string()
-    .min(1, "Email is required")
-    .email("Please enter a valid email address"),
-
-  password: z
-    .string()
-    .min(1, "Password is required")
-    .min(6, "Password must be at least 6 characters long"),
-});
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
-  const form = useForm<z.infer<typeof loginSchema>>({
-    resolver: zodResolver(loginSchema),
+  const [login, { isLoading }] = useLoginAdminMutation();
+  const router = useRouter();
+
+  const form = useForm<LoginInputT>({
+    resolver: zodResolver(authSchema.loginSchema),
     defaultValues: {
       email: "",
       password: "",
     },
   });
 
-  function onSubmit(values: z.infer<typeof loginSchema>) {
-    //
+  async function onSubmit(values: z.infer<typeof authSchema.loginSchema>) {
+    await handleRTKMutation(login(values), {
+      onSuccess: (data) => {
+        router.push("/admin/dashboard");
+      },
+      onError: (error) => {
+        console.log(error?.data?.errorDetails);
+      },
+    });
   }
 
   return (
@@ -104,7 +108,8 @@ export function LoginForm({
                     <div className="flex justify-end">
                       <Link
                         className="text-primary text-sm hover:opacity-90"
-                        href="/auth/forgot-password">
+                        href="/auth/forgot-password"
+                      >
                         Forgot Password?
                       </Link>
                     </div>
@@ -112,7 +117,7 @@ export function LoginForm({
                 )}
               />
 
-              <Button type="submit" className="w-full">
+              <Button type="submit" className="w-full" isLoading={isLoading}>
                 Login
               </Button>
             </form>
