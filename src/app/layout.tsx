@@ -20,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} antialiased`}>
         <main className="bg-background text-foreground h-full min-h-svh">
           <GlobalProvider>{children}</GlobalProvider>

@@ -1,4 +1,4 @@
-import logoUrl from "@/images/logo-transparent.png";
+import logoUrl from "@/images/logo.svg";
 
 const assets = {
   logoUrl,
