@@ -84,23 +84,20 @@ const CountdownDisplay = () => {
     );
   };
   const handleEnd = (id: string) => {
-    setCounters((prev) =>
-      prev.map((c) => {
-        if (c.id !== id) return c;
-
-        // If already playing, do nothing
-        if (c.isAlarmPlaying) return c;
-
-        // Create or reuse audio
-        const audio = c.audio || new Audio("/audios/alarm.wav");
-        audio.loop = true;
-        audio
-          .play()
-          .catch(() => console.log("User interaction required to play audio"));
-
-        return { ...c, isAlarmPlaying: true, audio };
-      }),
-    );
+    // setCounters((prev) =>
+    //   prev.map((c) => {
+    //     if (c.id !== id) return c;
+    //     // If already playing, do nothing
+    //     if (c.isAlarmPlaying) return c;
+    //     // Create or reuse audio
+    //     const audio = c.audio || new Audio("/audios/alarm.wav");
+    //     audio.loop = true;
+    //     audio
+    //       .play()
+    //       .catch(() => console.log("User interaction required to play audio"));
+    //     return { ...c, isAlarmPlaying: true, audio };
+    //   }),
+    // );
   };
 
   return (
