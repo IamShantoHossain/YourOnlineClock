@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Space_Grotesk } from "next/font/google";
 
 import GlobalProvider from "@/providers/GlobalProvider";
 import "@/styles/globals.css";
 
-const inter = Inter({
-  variable: "--font-geist-mono",
+const grotesk = Space_Grotesk({
+  variable: "--font-grotesk",
   subsets: ["latin"],
 });
 
@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className} antialiased`}>
+      <body className={`${grotesk.className} antialiased`}>
         <main className="bg-background text-foreground h-full min-h-svh">
           <GlobalProvider>{children}</GlobalProvider>
         </main>
