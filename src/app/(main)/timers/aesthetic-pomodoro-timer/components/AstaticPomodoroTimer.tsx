@@ -102,6 +102,32 @@ const MainTimerWithDialog = ({
   const selectedTimer = timerOptions.find(
     (t) => t.title === activeTimerMode,
   ) || { time: 15 };
+
+  useEffect(() => {
+    const selectedTimer = timerOptions.find(
+      (t) => t.title === activeTimerMode,
+    ) || { time: 15 };
+
+    setSeconds(selectedTimer.time * 60);
+    setIsRunning(false);
+    clearInterval(intervalRef.current!);
+  }, [activeTimerMode]);
+
+  useEffect(() => {
+    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+      event.preventDefault();
+      event.returnValue = ""; // Chrome requires setting returnValue to show a prompt
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
+
+  console.log(JSON.stringify(activeTimerMode));
+
   const initialSeconds = selectedTimer.time * 60;
 
   const [seconds, setSeconds] = useState(initialSeconds);
@@ -185,7 +211,7 @@ const MainTimerWithDialog = ({
               className="rounded-full lowercase"
               onClick={() => setParam("timerMode", option.title)}
             >
-              {option.title}
+              {activeTimerMode}
             </Button>
           ))}
         </div>
@@ -222,115 +248,3 @@ const MainTimerWithDialog = ({
     </>
   );
 };
-
-// const MainTimer = () => {
-//   const { getParam, setParam } = useParams();
-//   const activeTimerMode = getParam("timerMode") || "Pomodoro";
-
-//   const timerOptions = [
-//     { title: "Pomodoro", time: 0.05 },
-//     { title: "Short Break", time: 5 },
-//     { title: "Long Break", time: 10 },
-//   ];
-
-//   const selectedTimer = timerOptions.find(
-//     (t) => t.title === activeTimerMode,
-//   ) || { time: 15 };
-
-//   const initialSeconds = selectedTimer.time * 60;
-
-//   const [seconds, setSeconds] = useState(initialSeconds);
-//   const [isRunning, setIsRunning] = useState(false);
-
-//   const intervalRef = useRef<NodeJS.Timeout | null>(null);
-
-//   // Sound to play when timer ends
-//   const endSound = useRef(new Audio("/assets/sounds/alarm.mp3"));
-
-//   useEffect(() => {
-//     resetTimer();
-//   }, [activeTimerMode]);
-
-//   useEffect(() => {
-//     if (isRunning) {
-//       intervalRef.current = setInterval(() => {
-//         setSeconds((prev) => {
-//           if (prev <= 1) {
-//             clearInterval(intervalRef.current!);
-//             endSound.current.play(); // Play sound
-//             endSound.current.volume = 0.5;
-//             endSound.current.loop = true;
-
-//             resetTimer(); // Reset timer automatically
-//             return 0;
-//           }
-//           return prev - 1;
-//         });
-//       }, 1000);
-//     }
-
-//     return () => clearInterval(intervalRef.current!);
-//   }, [isRunning]);
-
-//   useEffect(() => {
-//     document.title = `${formatTime(seconds)} • ${activeTimerMode}`;
-//   }, [seconds, activeTimerMode]);
-
-//   const resetTimer = () => {
-//     clearInterval(intervalRef.current!);
-//     setSeconds(initialSeconds);
-//     setIsRunning(false);
-//   };
-
-//   const startTimer = () => {
-//     if (seconds > 0) setIsRunning(true);
-//   };
-
-//   const pauseTimer = () => {
-//     clearInterval(intervalRef.current!);
-//     setIsRunning(false);
-//   };
-
-//   const formatTime = (sec: number) => {
-//     const m = Math.floor(sec / 60);
-//     const s = sec % 60;
-//     return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
-//   };
-
-//   return (
-//     <div className="flex flex-col items-center justify-center gap-12">
-//       <div className="flex flex-col gap-3 md:flex-row">
-//         {timerOptions.map((option) => (
-//           <Button
-//             key={option.title}
-//             size={"lg"}
-//             variant={activeTimerMode === option.title ? "default" : "outline"}
-//             className="rounded-full lowercase"
-//             onClick={() => setParam("timerMode", option.title)}
-//           >
-//             {option.title}
-//           </Button>
-//         ))}
-//       </div>
-//       <p className="text-7xl font-bold tabular-nums sm:text-8xl lg:text-9xl">
-//         {formatTime(seconds)}
-//       </p>
-//       <div className="flex items-center gap-3">
-//         {!isRunning ? (
-//           <Button size="lg" onClick={startTimer}>
-//             <FaPlay className="size-4 opacity-80" /> Start
-//           </Button>
-//         ) : (
-//           <Button size="lg" variant="secondary" onClick={pauseTimer}>
-//             <FaPause className="size-4 opacity-80" />
-//             Pause
-//           </Button>
-//         )}
-
-//         <Button size="lg" variant="ghost" onClick={resetTimer}>
-//           <RiResetLeftLine className="size-10" />
-//         </Button>
-//       </div>
-//     </div>
-//   );
-// };
