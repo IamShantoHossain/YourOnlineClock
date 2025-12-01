@@ -94,7 +94,7 @@ const MainTimerWithDialog = ({
   setParam: (key: string, value: string) => void;
 }) => {
   const timerOptions = [
-    { title: "Pomodoro", time: 0.05 },
+    { title: "Pomodoro", time: 25 },
     { title: "Short Break", time: 5 },
     { title: "Long Break", time: 10 },
   ];
