@@ -3,19 +3,19 @@
 import { Button } from "@/components/ui/button";
 import { P } from "@/components/ui/typography";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { JSX, useEffect, useRef, useState } from "react";
 import { AiOutlineFullscreen, AiOutlineFullscreenExit } from "react-icons/ai";
-import { FaPause, FaPlay } from "react-icons/fa6";
+import { FaGear, FaPause, FaPlay } from "react-icons/fa6";
 import { RiResetLeftLine } from "react-icons/ri";
 import { aestheticPomodoroTimerThemes } from "../constants";
 
 const AstaticPomodoroTimer = () => {
+  const { getParam, setParam } = useParams();
   const [activeTheme, setActiveTheme] = useState(
     aestheticPomodoroTimerThemes[0],
   );
 
-  const { getParam, setParam } = useParams();
-  const activeTimerMode = getParam("timerMode") || "Pomodoro";
+  const activeTimerMode = (getParam("timerMode") as string) || "Pomodoro";
 
   const [isFullscreen, setIsFullscreen] = useState(false);
 
@@ -41,13 +41,25 @@ const AstaticPomodoroTimer = () => {
 
   const Logo = isFullscreen ? AiOutlineFullscreenExit : AiOutlineFullscreen;
 
+  // Sync theme with URL param using useEffect
+  useEffect(() => {
+    const paramTheme = getParam("theme") as string;
+
+    const foundTheme =
+      aestheticPomodoroTimerThemes.find((theme) => theme.name === paramTheme) ||
+      aestheticPomodoroTimerThemes[0];
+
+    setActiveTheme(foundTheme);
+  }, [getParam("theme")]);
+
   return (
     <div className="z-10 flex flex-1 items-center justify-center">
-      <div className="text-primary flex flex-col items-center justify-center gap-5">
+      <div className="text-foreground flex flex-col items-center justify-center gap-5">
         <Image
           src={activeTheme.backgroundImage}
           fill
-          placeholder="blur"
+          unoptimized
+          // placeholder="blur"
           alt=""
           className="pointer-events-none -z-10 h-svh w-svw object-cover brightness-35"
         />
@@ -58,7 +70,7 @@ const AstaticPomodoroTimer = () => {
         />
 
         <div className="group absolute right-0 bottom-0 flex h-52 items-center justify-center gap-3 p-10 pr-5">
-          <P className="text-primary scale-95 text-xl font-semibold opacity-0 transition-all duration-500 ease-out group-hover:scale-100 group-hover:opacity-100">
+          <P className="text-foreground scale-95 text-xl font-semibold opacity-0 transition-all duration-500 ease-out group-hover:scale-100 group-hover:opacity-100">
             Go Focus mode
           </P>
 
@@ -83,8 +95,10 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
+  DialogTrigger,
 } from "@/components/ui/dialog";
 import { useParams } from "@/hooks/useParams";
+import { cn } from "@/lib/utils";
 
 const MainTimerWithDialog = ({
   activeTimerMode,
@@ -113,19 +127,6 @@ const MainTimerWithDialog = ({
     clearInterval(intervalRef.current!);
   }, [activeTimerMode]);
 
-  useEffect(() => {
-    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
-      event.preventDefault();
-      event.returnValue = ""; // Chrome requires setting returnValue to show a prompt
-    };
-
-    window.addEventListener("beforeunload", handleBeforeUnload);
-
-    return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-    };
-  }, []);
-
   console.log(JSON.stringify(activeTimerMode));
 
   const initialSeconds = selectedTimer.time * 60;
@@ -145,6 +146,20 @@ const MainTimerWithDialog = ({
     sound.addEventListener("ended", handleEnded);
 
     return () => sound.removeEventListener("ended", handleEnded);
+  }, []);
+
+  useEffect(() => {
+    if (isRunning) return;
+    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+      event.preventDefault();
+      event.returnValue = ""; // Chrome requires setting returnValue to show a prompt
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
   }, []);
 
   useEffect(() => {
@@ -218,13 +233,13 @@ const MainTimerWithDialog = ({
         <p className="text-7xl font-bold tabular-nums sm:text-8xl lg:text-9xl">
           {formatTime(seconds)}
         </p>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-0">
           {!isRunning ? (
             <Button size="lg" onClick={startTimer}>
               <FaPlay className="size-4 opacity-80" /> Start
             </Button>
           ) : (
-            <Button size="lg" variant="secondary" onClick={pauseTimer}>
+            <Button size="lg" variant="default" onClick={pauseTimer}>
               <FaPause className="size-4 opacity-80" /> Pause
             </Button>
           )}
@@ -232,6 +247,8 @@ const MainTimerWithDialog = ({
           <Button size="lg" variant="ghost" onClick={resetTimer}>
             <RiResetLeftLine className="size-10" />
           </Button>
+
+          <SettingsModal />
         </div>
       </div>
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
@@ -246,5 +263,112 @@ const MainTimerWithDialog = ({
         </DialogContent>
       </Dialog>
     </>
+  );
+};
+
+const SettingsModal = ({}: {}) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [activeSetting, setActiveSetting] = useState("Theme");
+
+  const SIDEBAR_LIST = [
+    {
+      title: "Theme",
+      component: <ThemesSettings />,
+    },
+    { title: "Sounds", component: <div>Sound Settings</div> },
+    { title: "Notifications", component: <div>Notification Settings</div> },
+  ];
+
+  return (
+    <>
+      <Dialog>
+        <form>
+          <DialogTrigger asChild>
+            <Button variant={"ghost"}>
+              <FaGear className="size-8" />
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="flex">
+            <DialogSidebar
+              activeSetting={activeSetting}
+              changePage={(page) => setActiveSetting(page)}
+              SIDEBAR_LIST={SIDEBAR_LIST}
+            />
+            <div>
+              {
+                SIDEBAR_LIST.find((item) => item.title === activeSetting)
+                  ?.component
+              }
+            </div>
+          </DialogContent>
+        </form>
+      </Dialog>
+    </>
+  );
+};
+
+const DialogSidebar = ({
+  SIDEBAR_LIST,
+  activeSetting,
+  changePage,
+}: {
+  SIDEBAR_LIST: {
+    title: string;
+    component: JSX.Element;
+  }[];
+  activeSetting: string;
+  changePage: (title: string) => void;
+}) => {
+  return (
+    <div className="flex flex-col items-start gap-0">
+      {SIDEBAR_LIST.map((item) => (
+        <button
+          key={item.title}
+          className={cn(
+            "py-1",
+            activeSetting === item.title &&
+              "underline-primary cursor-pointer underline underline-offset-2",
+          )}
+          onClick={() => changePage(item.title)}
+        >
+          <h3 className="mb-2 text-lg font-semibold">{item.title}</h3>
+        </button>
+      ))}
+    </div>
+  );
+};
+
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
+const ThemesSettings = ({}: {}) => {
+  const { setParam } = useParams();
+  const themes = aestheticPomodoroTimerThemes;
+
+  return (
+    <div>
+      <Select onValueChange={(value) => setParam("theme", value)}>
+        <SelectTrigger className="w-max">
+          <SelectValue placeholder="Select a theme" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectGroup>
+            <SelectLabel>Themes</SelectLabel>
+            {themes.map((theme) => (
+              <SelectItem key={theme.name} value={theme.name}>
+                {theme.name}
+              </SelectItem>
+            ))}
+          </SelectGroup>
+        </SelectContent>
+      </Select>
+    </div>
   );
 };
