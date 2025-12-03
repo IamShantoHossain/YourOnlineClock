@@ -22,9 +22,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className={"clock-astatic-theme"}>
       <body className={`${grotesk.className} antialiased`}>
-        <main className="bg-background text-foreground h-full min-h-svh">
-          <GlobalProvider>{children}</GlobalProvider>
-        </main>
+        <GlobalProvider>
+          <main className="flex h-full min-h-dvh flex-col">{children}</main>
+        </GlobalProvider>
       </body>
     </html>
   );

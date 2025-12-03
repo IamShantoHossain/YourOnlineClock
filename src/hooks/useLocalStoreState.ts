@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 type Options<T> = {
   defaultValue: T;
@@ -14,8 +14,6 @@ export const useLocalStorageState = <T>(
     deserializer = JSON.parse,
   }: Options<T>,
 ) => {
-  const [isLoading, setIsLoading] = useState(true);
-
   const [state, setState] = useState<T>(() => {
     if (typeof window === "undefined") return defaultValue;
     try {
@@ -26,19 +24,13 @@ export const useLocalStorageState = <T>(
     }
   });
 
-  useEffect(() => {
+  // Update localStorage whenever state changes
+  const setValue = (value: T) => {
     try {
-      localStorage.setItem(key, serializer(state));
-    } catch {
-    } finally {
-      setIsLoading(false);
-    }
-  }, [key, state, serializer]);
-
-  const remove = () => {
-    localStorage.removeItem(key);
-    setState(defaultValue);
+      localStorage.setItem(key, serializer(value));
+      setState(value);
+    } catch {}
   };
 
-  return [state, setState, remove, isLoading] as const;
+  return [state, setValue] as const;
 };

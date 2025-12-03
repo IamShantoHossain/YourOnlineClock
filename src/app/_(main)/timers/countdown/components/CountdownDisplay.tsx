@@ -4,7 +4,6 @@ import Container from "@/components/global/Container";
 import { Button } from "@/components/ui/button";
 import { H2 } from "@/components/ui/typography";
 import { useLocalStorageState } from "@/hooks/useLocalStoreState";
-import SingleCounter from "./SingleCounter";
 
 export type CountdownItem = {
   id: string;
@@ -17,34 +16,33 @@ export type CountdownItem = {
 };
 
 const CountdownDisplay = () => {
-  const [counters, setCounters, _remove, isLoading] = useLocalStorageState<
-    CountdownItem[]
-  >("countdown-items", {
-    defaultValue: [
-      {
-        id: crypto.randomUUID(),
-        title: "Morning Workout",
-        targetTime: Date.now() + 30 * 60 * 1000,
-        paused: true,
-        totalDuration: 1 * 60 * 1000,
-        remaining: 0.1 * 60 * 1000,
-        isAlarmPlaying: false,
-      },
-      {
-        id: crypto.randomUUID(),
-        title: "Lunch Break",
-        targetTime: Date.now() + 2 * 60 * 60 * 1000,
-        paused: true,
-        totalDuration: 2 * 60 * 60 * 1000,
-        remaining: 2 * 60 * 60 * 1000,
-        isAlarmPlaying: false,
-      },
-    ],
-  });
+  const [counters, setCounters] = useLocalStorageState<CountdownItem[]>(
+    "countdown-items",
+    {
+      defaultValue: [
+        {
+          id: crypto.randomUUID(),
+          title: "Morning Workout",
+          targetTime: Date.now() + 30 * 60 * 1000,
+          paused: true,
+          totalDuration: 1 * 60 * 1000,
+          remaining: 0.1 * 60 * 1000,
+          isAlarmPlaying: false,
+        },
+        {
+          id: crypto.randomUUID(),
+          title: "Lunch Break",
+          targetTime: Date.now() + 2 * 60 * 60 * 1000,
+          paused: true,
+          totalDuration: 2 * 60 * 60 * 1000,
+          remaining: 2 * 60 * 60 * 1000,
+          isAlarmPlaying: false,
+        },
+      ],
+    },
+  );
 
-  const clearTimers = () => {
-    _remove();
-  };
+  const clearTimers = () => {};
 
   const deleteCounter = (id: string) => {
     const newCounters = counters.filter((counter) => counter.id != id);
@@ -104,7 +102,7 @@ const CountdownDisplay = () => {
     <Container className="space-y-5">
       <H2 className="text-center">Countdown Clocks</H2>
       <Button onClick={clearTimers}>dsf</Button>
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      {/* <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {!isLoading
           ? counters.map((counter) => (
               <SingleCounter
@@ -118,7 +116,7 @@ const CountdownDisplay = () => {
               />
             ))
           : "Loading"}
-      </div>
+      </div> */}
     </Container>
   );
 };

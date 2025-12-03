@@ -2,15 +2,8 @@ import warmSunset from "@/assets/images/aesthetic-pomodoro-timer/3ce5f595f1a64dc
 import softPurple from "@/assets/images/aesthetic-pomodoro-timer/9f1e88521119e2e349d8.jpg";
 import neonWave from "@/assets/images/aesthetic-pomodoro-timer/c629a813b3561cfa40dd.jpg";
 import cyberBlue from "@/assets/images/aesthetic-pomodoro-timer/cc967d65f9f43ddff7f7.jpg";
-import darkAesthetic from "@/assets/images/aesthetic-pomodoro-timer/Dark-Aesthetic.jpg";
 
 export const aestheticPomodoroTimerThemes = [
-  {
-    name: "Dark Aesthetic",
-    backgroundImage: darkAesthetic,
-    primaryColor: "#1a1a1a",
-    textColor: "#ffffff",
-  },
   {
     name: "Warm Sunset",
     backgroundImage: warmSunset,
