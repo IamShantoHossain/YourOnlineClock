@@ -74,6 +74,7 @@ const ThemesSettings = () => {
               height={800}
               width={800}
               alt={theme.name}
+              placeholder="blur"
               className="h-26 w-full shrink-0 object-cover md:h-46"
             />
           </div>
