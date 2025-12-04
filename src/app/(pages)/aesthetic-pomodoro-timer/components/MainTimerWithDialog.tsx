@@ -86,6 +86,8 @@ export const MainTimerWithDialog = () => {
 
   const playAlarm = () => {
     endSound.current.play();
+    endSound.current.loop = true;
+    endSound.current.currentTime = 0;
     setIsDialogOpen(true);
   };
 
