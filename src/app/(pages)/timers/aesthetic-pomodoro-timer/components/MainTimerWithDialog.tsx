@@ -9,7 +9,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { usePreventClose } from "@/hooks/usePreventClose";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { RefObject, useEffect, useMemo, useRef, useState } from "react";
 import { FaPause, FaPlay } from "react-icons/fa6";
 import { RiResetLeftLine } from "react-icons/ri";
 import { useTimer } from "../context/PromoTimerContext";
@@ -23,7 +23,12 @@ export const MainTimerWithDialog = () => {
 
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  const endSound = useRef(new Audio("/assets/sounds/asthatic-alerm.mp3"));
+  // how to set its type for Audio object
+  const endSound = useRef(
+    typeof Audio !== "undefined"
+      ? new Audio("/assets/sounds/asthatic-alerm.mp3")
+      : null,
+  )! as RefObject<HTMLAudioElement>;
 
   // Prevent tab close when timer is running
   usePreventClose(isRunning);
@@ -152,7 +157,7 @@ export const MainTimerWithDialog = () => {
 
       {/* Alarm Dialog */}
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent showCloseButton={true} className="sm:max-w-[425px]">
           <DialogHeader>
             <DialogTitle>Alarm Playing</DialogTitle>
           </DialogHeader>

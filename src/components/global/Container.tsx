@@ -8,7 +8,7 @@ type ContainerProps = {
 
 export default function Container({ children, className }: ContainerProps) {
   return (
-    <section className={cn("mx-auto w-full max-w-360 p-5", className)}>
+    <section className={cn("mx-auto w-full max-w-360 p-3", className)}>
       {children}
     </section>
   );

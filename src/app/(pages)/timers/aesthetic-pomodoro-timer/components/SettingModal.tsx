@@ -3,16 +3,9 @@
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Muted } from "@/components/ui/typography";
+import { cn } from "@/lib/utils";
+import Image from "next/image";
 import { JSX, useState } from "react";
 import { FaGear } from "react-icons/fa6";
 import { aestheticPomodoroTimerThemes } from "../constants";
@@ -37,14 +30,20 @@ export const SettingsModal = () => {
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="flex min-h-52 w-full max-w-full flex-col gap-4 overflow-auto sm:max-w-3xl sm:flex-row sm:gap-8">
-        <DialogSidebar
-          activeSetting={activeSetting}
-          changePage={setActiveSetting}
-          SETTINGS_LIST={SETTINGS_LIST}
-        />
-        <div className="w-full overflow-auto p-2 sm:w-[calc(100%-150px)] sm:p-0">
-          {SETTINGS_LIST.find((s) => s.title === activeSetting)?.component}
+      <DialogContent
+        showCloseButton={true}
+        className="h-[80vh] w-[96vw] max-w-800! overflow-y-auto sm:w-[80vw]!"
+      >
+        <Dialog></Dialog>
+        <div className="flex flex-col md:flex-row">
+          <DialogSidebar
+            activeSetting={activeSetting}
+            changePage={setActiveSetting}
+            SETTINGS_LIST={SETTINGS_LIST}
+          />
+          <div className="s w-full overflow-auto px-1.5">
+            {SETTINGS_LIST.find((s) => s.title === activeSetting)?.component}
+          </div>
         </div>
       </DialogContent>
     </Dialog>
@@ -57,28 +56,29 @@ const ThemesSettings = () => {
   const themes = aestheticPomodoroTimerThemes;
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex w-full flex-col gap-3">
       <Muted>Select a theme</Muted>
-      <Select
-        onValueChange={(value) =>
-          setActiveTheme(themes.find((t) => t.name === value)!)
-        }
-        defaultValue={activeTheme.name}
-      >
-        <SelectTrigger className="w-full">
-          <SelectValue placeholder="Select a theme" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectGroup>
-            <SelectLabel>Themes</SelectLabel>
-            {themes.map((theme) => (
-              <SelectItem key={theme.name} value={theme.name}>
-                {theme.name}
-              </SelectItem>
-            ))}
-          </SelectGroup>
-        </SelectContent>
-      </Select>
+
+      <div className="grid w-full grid-cols-2 gap-3 sm:grid-cols-2">
+        {themes.map((theme) => (
+          <div
+            onClick={() => setActiveTheme(theme)}
+            key={theme.name}
+            className={cn(
+              "overflow-hidden rounded-md",
+              theme.name === activeTheme.name ? "ring-primary ring-2" : "",
+            )}
+          >
+            <Image
+              src={theme.backgroundImage}
+              height={800}
+              width={800}
+              alt={theme.name}
+              className="h-26 w-full shrink-0 object-cover md:h-46"
+            />
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
@@ -128,7 +128,7 @@ const DialogSidebar = ({
   changePage: (title: string) => void;
 }) => {
   return (
-    <div className="flex flex-row gap-2 overflow-x-auto sm:min-w-[140px] sm:flex-col sm:gap-3 sm:overflow-x-visible">
+    <div className="top-0 flex flex-row gap-2 overflow-x-auto sm:min-w-[140px] sm:flex-col sm:gap-3 sm:overflow-x-visible">
       {SETTINGS_LIST.map((item) => (
         <button
           key={item.title}

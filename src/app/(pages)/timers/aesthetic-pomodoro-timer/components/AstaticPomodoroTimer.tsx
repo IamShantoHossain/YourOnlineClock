@@ -34,13 +34,14 @@ const AstaticPomodoroTimer = () => {
   const Logo = isFullscreen ? AiOutlineFullscreenExit : AiOutlineFullscreen;
 
   return (
-    <div className="relative z-10 my-auto flex h-dvh flex-1 items-center justify-center">
+    <div className="relative my-auto flex h-dvh flex-1 items-center justify-center">
       <Image
         src={activeTheme.backgroundImage}
-        unoptimized
+        height={1000}
+        width={1000}
         placeholder="blur"
         alt=""
-        className="pointer-events-none fixed top-0 left-0 h-screen w-screen object-cover transition-all"
+        className="pointer-events-none fixed top-0 left-0 -z-10 h-screen w-screen object-cover transition-all"
       />
 
       <div className="text-foreground flex h-screen flex-col items-center justify-center gap-5">
