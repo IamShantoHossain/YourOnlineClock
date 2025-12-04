@@ -32,7 +32,7 @@ export const SettingsModal = () => {
 
       <DialogContent
         showCloseButton={true}
-        className="h-[80vh] w-[96vw] max-w-800! overflow-y-auto sm:w-[80vw]!"
+        className="h-[80vh] w-[96vw] max-w-240! overflow-y-auto sm:w-[80vw]!"
       >
         <Dialog></Dialog>
         <div className="flex flex-col md:flex-row">
