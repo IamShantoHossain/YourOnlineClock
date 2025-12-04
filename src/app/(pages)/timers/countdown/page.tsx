@@ -1,9 +1,9 @@
-import CountDown from "@/features/CountDownpage/CountDown";
+import UnderConstruction from "@/features/UserConstruction/UnserConstruction";
 
 const Page = () => {
   return (
     <div className="flex h-dvh items-center justify-center">
-      <CountDown />
+      <UnderConstruction />
     </div>
   );
 };

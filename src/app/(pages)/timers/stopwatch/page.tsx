@@ -1,5 +1,7 @@
+import UnderConstruction from "@/features/UserConstruction/UnserConstruction";
+
 const Page = () => {
-  return <div></div>;
+  return <UnderConstruction />;
 };
 
 export default Page;

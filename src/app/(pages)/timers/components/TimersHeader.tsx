@@ -24,7 +24,7 @@ const TimersHeader = () => {
   };
 
   return (
-    <div className="animate-in fade-in-40 fixed top-0 left-0 z-20 m-auto flex w-full items-center justify-between from-35% p-4 duration-500">
+    <div className="animate-in fade-in-40 sticky top-0 left-0 z-20 m-auto flex w-full items-center justify-between from-35% p-4 duration-500">
       <Container className="flex items-center justify-between">
         <H2 className="from-primary to-primary/95 bg-linear-to-r bg-clip-text font-black text-transparent">
           YourClockOnline

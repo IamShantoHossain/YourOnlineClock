@@ -46,9 +46,8 @@ export const PromoTimerProvider = ({ children }: { children: ReactNode }) => {
     aestheticPomodoroTimerThemes.find((t) => t.name === activeThemeName) ??
     aestheticPomodoroTimerThemes[0];
 
-  console.log();
-
   const setActiveTheme = (theme: ThemeOption) => {
+    console.log("🔄 Saving theme to localStorage:", theme.name);
     setActiveThemeName(theme.name);
   };
 

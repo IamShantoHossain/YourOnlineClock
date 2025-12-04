@@ -5,9 +5,9 @@ export const dynamic = "force-dynamic";
 
 const Page = () => {
   return (
-    <div className="flex h-full min-h-dvh">
+    <div className="relative flex h-full flex-1">
       <PromoTimerProvider>
-        <AstaticPomodoroTimer />;
+        <AstaticPomodoroTimer />
       </PromoTimerProvider>
     </div>
   );
