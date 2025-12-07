@@ -20,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={"clock-astatic-theme"}>
+    <html lang="en" suppressHydrationWarning>
       <body className={`${grotesk.className} antialiased`}>
         <GlobalProvider>
           <main className="flex h-full min-h-dvh flex-col">{children}</main>

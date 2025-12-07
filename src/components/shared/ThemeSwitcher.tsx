@@ -5,12 +5,17 @@ import { IoMoon, IoSunny } from "react-icons/io5";
 import { Button } from "../ui/button";
 
 export default function ThemeSwitcher() {
-  const { setTheme, theme } = useTheme();
+  const { setTheme, theme, resolvedTheme } = useTheme();
 
   const handleThemeSwitch = () => {
-    const newTheme = theme == "dark" ? "light" : "dark";
+    // Use resolvedTheme as fallback for initial render
+    const currentTheme = theme || resolvedTheme || "dark";
+    const newTheme = currentTheme === "dark" ? "light" : "dark";
     setTheme(newTheme);
   };
+
+  // Use resolvedTheme to determine which icon to show
+  const currentTheme = theme || resolvedTheme;
 
   return (
     <div>
@@ -20,7 +25,7 @@ export default function ThemeSwitcher() {
         className=""
         onClick={handleThemeSwitch}
       >
-        {theme == "light" ? <IoMoon /> : <IoSunny />}
+        {currentTheme === "light" ? <IoMoon /> : <IoSunny />}
       </Button>
     </div>
   );

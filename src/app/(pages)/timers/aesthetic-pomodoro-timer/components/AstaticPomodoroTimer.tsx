@@ -1,7 +1,6 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { P } from "@/components/ui/typography";
+import FocusMode from "@/components/shared/Timers/FocusMode";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { AiOutlineFullscreen, AiOutlineFullscreenExit } from "react-icons/ai";
@@ -65,19 +64,7 @@ const AstaticPomodoroTimer = () => {
       <div className="text-foreground flex flex-col items-center justify-center gap-5">
         <MainTimerWithDialog />
 
-        <div className="group absolute right-0 bottom-0 flex items-center justify-center gap-3 p-10 pr-5 sm:h-52">
-          <P className="text-foreground scale-95 text-xl font-semibold opacity-0 transition-all duration-500 ease-out group-hover:scale-100 group-hover:opacity-100">
-            Go Focus mode
-          </P>
-
-          <Button
-            onClick={toggleFullscreen}
-            variant="ghost"
-            className="h-fit w-fit scale-95 cursor-pointer p-0 transition-all duration-500 ease-out group-hover:scale-100 group-hover:opacity-100 sm:opacity-0"
-          >
-            <Logo className="pointer-events-none size-12" />
-          </Button>
-        </div>
+        <FocusMode />
       </div>
     </div>
   );
