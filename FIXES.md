@@ -10,7 +10,7 @@
 - Added better error logging to help debug issues
 - Added fallback for when notifications are disabled but sound is enabled
 - Added auto-close for notifications (closes after 5 seconds)
-- Added comprehensive console logging
+- Added comprehensive console logging 
 
 **How to test:**
 
