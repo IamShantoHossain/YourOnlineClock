@@ -6,7 +6,13 @@ import ToasterProvider from "./ToasterProvider";
 
 const GlobalProvider = ({ children }: { children?: React.ReactNode }) => {
   return (
-    <NextThemesProvider attribute="class" defaultTheme="system" enableSystem>
+    <NextThemesProvider
+      attribute="class"
+      defaultTheme="dark"
+      forcedTheme="dark"
+      enableSystem={false}
+      disableTransitionOnChange={false}
+    >
       <ToasterProvider>
         <NextTopLoader showSpinner={false} easing="ease-out" />
         {children}
