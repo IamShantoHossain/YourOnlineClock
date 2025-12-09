@@ -26,7 +26,8 @@ const MultiTimerContainer = () => {
   }
 
   return (
-    <div className="relative w-full flex-1">
+    <div className="relative h-full">
+      <MultiTimerContent />
       <Image
         key={activeBackgroundTheme.name}
         src={activeBackgroundTheme.backgroundImage}
@@ -34,12 +35,8 @@ const MultiTimerContainer = () => {
         width={1000}
         placeholder="blur"
         alt={activeBackgroundTheme.name}
-        className="pointer-events-none fixed top-0 left-0 -z-10 h-screen w-screen object-cover"
+        className="pointer-events-none fixed top-0 left-0 -z-10 h-dvh w-screen object-cover"
       />
-
-      <div className="relative">
-        <MultiTimerContent />
-      </div>
     </div>
   );
 };

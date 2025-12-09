@@ -2,24 +2,14 @@
 
 import Link from "next/link";
 import { FaEnvelope, FaGithub, FaTwitter } from "react-icons/fa";
+import Container from "../global/Container";
 
 const footerBlockedPaths = ["/timers/"];
 
 export default function Footer() {
-  if (typeof window === "undefined") {
-    return null;
-  }
-  if (
-    footerBlockedPaths.includes(
-      "/" + window.location.pathname.split("/")[1] + "/",
-    )
-  ) {
-    return null;
-  }
-
   return (
-    <footer className="border-border/50 mt-auto border-t">
-      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+    <footer className="border-border/50 bg-background mt-auto border-t">
+      <Container className="mx-auto py-8 sm:px-6 lg:px-8">
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
           <div className="space-y-3">
@@ -58,14 +48,6 @@ export default function Footer() {
                   className="text-muted-foreground hover:text-primary text-sm transition-colors"
                 >
                   Multi Timer
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/timers/countdown"
-                  className="text-muted-foreground hover:text-primary text-sm transition-colors"
-                >
-                  Countdown Timer
                 </Link>
               </li>
             </ul>
@@ -141,7 +123,7 @@ export default function Footer() {
             © {new Date().getFullYear()} YourClockOnline. All rights reserved.
           </p>
         </div>
-      </div>
+      </Container>
     </footer>
   );
 }

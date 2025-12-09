@@ -245,17 +245,6 @@ export const MultiTimer = () => {
 
   return (
     <>
-      {/* Background Image */}
-      <Image
-        key={activeBackgroundTheme.name}
-        src={activeBackgroundTheme.backgroundImage}
-        height={1000}
-        width={1000}
-        placeholder="blur"
-        alt={activeBackgroundTheme.name}
-        className="pointer-events-none fixed top-0 left-0 -z-10 h-screen w-screen object-cover"
-      />
-
       <div className="mx-auto w-full max-w-7xl space-y-6 p-4 sm:p-6 lg:p-8">
         {/* Page Header */}
         <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">

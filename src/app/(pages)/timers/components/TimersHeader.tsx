@@ -88,9 +88,9 @@ const TimersHeader = () => {
   }, []);
 
   const navLinks = [
-    { title: "Pomodoro", href: "aesthetic-pomodoro-timer" },
-    { title: "Stopwatch", href: "stopwatch" },
-    { title: "Timer", href: "multi-timer" },
+    { title: "Pomodoro", href: "/timers/aesthetic-pomodoro-timer" },
+    { title: "Stopwatch", href: "/timers/stopwatch" },
+    { title: "Timer", href: "/timers/multi-timer" },
   ];
 
   const utilityLinks = [{ title: "Contact", href: "/contact" }];
@@ -102,14 +102,14 @@ const TimersHeader = () => {
   return (
     <div
       className={cn(
-        "animate-in fade-in-40 sticky top-0 left-0 z-20 m-auto flex w-full items-center justify-between p-4 transition-all duration-300",
+        "animate-in fade-in-40 sticky top-0 left-0 z-20 m-auto flex h-[8dvh] w-full items-center justify-between p-4 transition-all duration-300",
         isScrolled ? "backdrop-blur" : "",
       )}
     >
       <Container className="flex items-center justify-between">
         {/* Left Side: Logo + Nav Links */}
         <div className="flex items-center gap-4 sm:gap-8">
-          <Link href="/timers/aesthetic-pomodoro-timer">
+          <Link href="/">
             <H2 className="from-primary to-primary/95 bg-linear-to-r bg-clip-text text-base font-black text-transparent sm:text-xl md:text-2xl">
               YourClockOnline
             </H2>
@@ -161,6 +161,42 @@ const TimersHeader = () => {
               </SheetHeader>
 
               <div className="mt-4 max-h-[calc(100vh-120px)] space-y-6 overflow-y-auto px-4 pr-2">
+                {/* Background Themes - Available for ALL pages */}
+                <div className="space-y-3">
+                  <h3 className="text-sm font-semibold">Background Theme</h3>
+                  <div className="grid grid-cols-2 gap-2">
+                    {aestheticPomodoroTimerThemes.map((theme) => (
+                      <Button
+                        key={theme.name}
+                        variant="ghost"
+                        className={cn(
+                          "h-28 overflow-hidden rounded-md p-0",
+                          theme.name === activeBackgroundTheme.name
+                            ? "ring-primary ring-2"
+                            : "",
+                        )}
+                        onClick={() => {
+                          setActiveBackgroundTheme(theme);
+                          console.log("Selected theme:", theme.name);
+                        }}
+                      >
+                        <Image
+                          src={theme.backgroundImage}
+                          height={200}
+                          width={200}
+                          alt={theme.name}
+                          className="h-28 object-cover"
+                        />
+                      </Button>
+                    ))}
+                  </div>
+                  <p className="text-muted-foreground text-xs leading-relaxed">
+                    Choose a background theme for your timer
+                  </p>
+                </div>
+
+                <Separator />
+
                 {/* Pomodoro Timer Settings */}
                 {isPomodoroPage && (
                   <>
@@ -239,46 +275,6 @@ const TimersHeader = () => {
                 {/* Stopwatch Settings */}
                 {isStopwatchPage && (
                   <>
-                    {/* Background Themes */}
-                    <div className="space-y-3">
-                      <h3 className="text-sm font-semibold">
-                        Background Theme
-                      </h3>
-                      <div className="grid grid-cols-2 gap-2">
-                        {[...aestheticPomodoroTimerThemes.slice(0, 6)].map(
-                          (theme) => (
-                            <Button
-                              key={theme.name}
-                              variant="ghost"
-                              className={cn(
-                                "h-28 overflow-hidden rounded-md p-0",
-                                theme.name === activeBackgroundTheme.name
-                                  ? "ring-primary ring-2"
-                                  : "",
-                              )}
-                              onClick={() => {
-                                setActiveBackgroundTheme(theme);
-                                console.log("Selected theme:", theme.name);
-                              }}
-                            >
-                              <Image
-                                src={theme.backgroundImage}
-                                height={200}
-                                width={200}
-                                alt={theme.name}
-                                className="h-28 object-cover"
-                              />
-                            </Button>
-                          ),
-                        )}
-                      </div>
-                      <p className="text-muted-foreground text-xs leading-relaxed">
-                        Choose a background theme for your stopwatch
-                      </p>
-                    </div>
-
-                    <Separator />
-
                     {/* Show Milliseconds */}
                     <div className="space-y-3">
                       <h3 className="text-sm font-semibold">Display</h3>
@@ -299,6 +295,8 @@ const TimersHeader = () => {
                         Toggle millisecond precision in the stopwatch display
                       </p>
                     </div>
+
+                    <Separator />
                   </>
                 )}
 
@@ -425,6 +423,38 @@ const TimersHeader = () => {
                   <Separator />
                   <div className="space-y-3">
                     <h3 className="text-sm font-semibold">Settings</h3>
+
+                    {/* Background Theme Selection - Available on ALL pages */}
+                    <div className="space-y-2">
+                      <Label className="text-sm">Background Theme</Label>
+                      <div className="grid grid-cols-3 gap-2">
+                        {aestheticPomodoroTimerThemes
+                          .slice(0, 6)
+                          .map((theme) => (
+                            <Button
+                              key={theme.name}
+                              variant="ghost"
+                              className={cn(
+                                "h-16 overflow-hidden rounded-md p-0",
+                                theme.name === activeBackgroundTheme.name
+                                  ? "ring-primary ring-2"
+                                  : "",
+                              )}
+                              onClick={() => {
+                                setActiveBackgroundTheme(theme);
+                              }}
+                            >
+                              <Image
+                                src={theme.backgroundImage}
+                                height={100}
+                                width={100}
+                                alt={theme.name}
+                                className="h-16 object-cover"
+                              />
+                            </Button>
+                          ))}
+                      </div>
+                    </div>
 
                     {/* Theme Mode - Kept for future use */}
                     {/* <div className="flex items-center justify-between gap-4">

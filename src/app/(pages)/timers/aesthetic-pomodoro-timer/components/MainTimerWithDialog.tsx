@@ -158,7 +158,7 @@ export const MainTimerWithDialog = () => {
         </div>
 
         {/* Timer Display */}
-        <p className="text-5xl font-bold tabular-nums sm:text-6xl md:text-8xl lg:text-[9rem]">
+        <p className="text-7xl font-bold tabular-nums md:text-8xl lg:text-[9rem]">
           {formatTime(seconds)}
         </p>
 
@@ -168,7 +168,7 @@ export const MainTimerWithDialog = () => {
             <Button
               size="lg"
               onClick={startTimer}
-              className="min-w-[90px] sm:min-w-[100px]"
+              className="min-w-[90px] bg-linear-to-r from-green-600 to-emerald-600 text-white shadow-lg shadow-green-500/30 transition-all hover:shadow-xl hover:shadow-green-500/40 sm:min-w-[100px]"
             >
               <FaPlay className="size-4 opacity-80" /> Start
             </Button>
@@ -177,7 +177,7 @@ export const MainTimerWithDialog = () => {
               size="lg"
               variant="default"
               onClick={pauseTimer}
-              className="min-w-[90px] sm:min-w-[100px]"
+              className="min-w-[90px] bg-linear-to-r from-orange-600 to-amber-600 text-white shadow-lg shadow-orange-500/30 transition-all hover:shadow-xl hover:shadow-orange-500/40 sm:min-w-[100px]"
             >
               <FaPause className="size-4 opacity-80" /> Pause
             </Button>

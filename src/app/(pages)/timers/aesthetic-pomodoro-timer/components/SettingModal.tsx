@@ -1,10 +1,16 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Muted } from "@/components/ui/typography";
 import { cn } from "@/lib/utils";
+import { useTimersSettings } from "@/providers/TimersSettingsProvider";
 import Image from "next/image";
 import { JSX, useState } from "react";
 import { FaGear } from "react-icons/fa6";
@@ -32,9 +38,9 @@ export const SettingsModal = () => {
 
       <DialogContent
         showCloseButton={true}
-        className="h-[80vh] w-[96vw] max-w-240! overflow-y-auto sm:w-[80vw]!"
+        className="h-[80vh] w-[96vw] max-w-280! overflow-y-auto sm:w-[80vw]!"
       >
-        <Dialog></Dialog>
+        <DialogTitle></DialogTitle>
         <div className="flex flex-col md:flex-row">
           <DialogSidebar
             activeSetting={activeSetting}
@@ -52,7 +58,8 @@ export const SettingsModal = () => {
 
 // Theme Settings
 const ThemesSettings = () => {
-  const { setActiveTheme, activeTheme } = useTimer();
+  const { setActiveBackgroundTheme, activeBackgroundTheme } =
+    useTimersSettings();
   const themes = aestheticPomodoroTimerThemes;
 
   return (
@@ -62,11 +69,13 @@ const ThemesSettings = () => {
       <div className="grid w-full grid-cols-2 gap-3 sm:grid-cols-2">
         {themes.map((theme) => (
           <div
-            onClick={() => setActiveTheme(theme)}
+            onClick={() => setActiveBackgroundTheme(theme)}
             key={theme.name}
             className={cn(
               "overflow-hidden rounded-md",
-              theme.name === activeTheme.name ? "ring-primary ring-2" : "",
+              theme.name === activeBackgroundTheme.name
+                ? "ring-primary ring-2"
+                : "",
             )}
           >
             <Image

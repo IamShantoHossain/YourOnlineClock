@@ -2,7 +2,6 @@
 
 import FocusMode from "@/components/shared/Timers/FocusMode";
 import { useTimersSettings } from "@/providers/TimersSettingsProvider";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Stopwatch } from "./Stopwatch";
 
@@ -28,17 +27,7 @@ const StopwatchContainer = () => {
   }
 
   return (
-    <div className="relative flex w-full items-center justify-center">
-      <Image
-        key={activeBackgroundTheme.name}
-        src={activeBackgroundTheme.backgroundImage}
-        height={1000}
-        width={1000}
-        placeholder="blur"
-        alt={activeBackgroundTheme.name}
-        className="pointer-events-none fixed top-0 left-0 -z-10 h-screen w-screen object-cover"
-      />
-
+    <div className="flex flex-1 items-center justify-center">
       <div className="text-foreground flex flex-col items-center justify-center gap-5">
         <Stopwatch />
         <FocusMode />

@@ -1,15 +1,20 @@
+import { PageContainer } from "@/components/global/Container";
 import AstaticPomodoroTimer from "./components/AstaticPomodoroTimer";
+import { TimerFAQ } from "./components/TimerFAQ";
 import { PromoTimerProvider } from "./context/PromoTimerContext";
 
 export const dynamic = "force-dynamic";
 
 const Page = () => {
   return (
-    <div className="relative flex h-full flex-1">
+    <>
       <PromoTimerProvider>
-        <AstaticPomodoroTimer />
+        <PageContainer className="pb-20">
+          <AstaticPomodoroTimer />
+        </PageContainer>
       </PromoTimerProvider>
-    </div>
+      <TimerFAQ />
+    </>
   );
 };
 

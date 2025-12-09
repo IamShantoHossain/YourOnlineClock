@@ -13,3 +13,11 @@ export default function Container({ children, className }: ContainerProps) {
     </section>
   );
 }
+
+export const PageContainer = ({ children, className }: ContainerProps) => {
+  return (
+    <div className={cn("flex h-full min-h-[92dvh] flex-1 flex-col", className)}>
+      {children}
+    </div>
+  );
+};

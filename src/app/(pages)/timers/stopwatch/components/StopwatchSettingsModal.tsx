@@ -32,7 +32,7 @@ export const StopwatchSettingsModal = () => {
 
       <DialogContent
         showCloseButton={true}
-        className="h-[80vh] w-[96vw] max-w-800! overflow-y-auto sm:w-[80vw]!"
+        className="h-[80vh] w-[96vw] max-w-280! overflow-y-auto sm:w-[80vw]!"
       >
         <div className="flex flex-col md:flex-row">
           <DialogSidebar
