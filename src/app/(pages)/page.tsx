@@ -62,7 +62,7 @@ const Page = () => {
           {/* Hero Section */}
           <section className="space-y-4 text-center">
             <h1 className="text-4xl font-bold md:text-6xl">YourOnlineClock</h1>
-            <p className="text-muted-foreground mx-auto max-w-2xl text-lg md:text-xl">
+            <p className="mx-auto max-w-2xl text-lg opacity-90 md:text-xl">
               Beautiful, free online timers for every need. Track time with
               style using our aesthetic Pomodoro timer, precision stopwatch, and
               powerful multi-timer at youronlineclock.com.
