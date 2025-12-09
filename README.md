@@ -11,7 +11,7 @@ yarn devf
 # or
 a
 
-pnpm devf
+pnpm devf 
 # or
 bun deva
 ```
