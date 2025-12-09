@@ -59,6 +59,22 @@ export default function Footer() {
             <ul className="space-y-2">
               <li>
                 <Link
+                  href="/about"
+                  className="text-muted-foreground hover:text-primary text-sm transition-colors"
+                >
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/disclaimer"
+                  className="text-muted-foreground hover:text-primary text-sm transition-colors"
+                >
+                  Disclaimer
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/privacy-policy"
                   className="text-muted-foreground hover:text-primary text-sm transition-colors"
                 >

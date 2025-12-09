@@ -2,10 +2,11 @@ import Container from "@/components/global/Container";
 import Footer from "@/components/shared/Footer";
 import { Card } from "@/components/ui/card";
 import { TimersSettingsProvider } from "@/providers/TimersSettingsProvider";
+import Image from "next/image";
 import Link from "next/link";
 import { FaClock, FaRegClock, FaStopwatch } from "react-icons/fa";
+import { aestheticPomodoroTimerThemes } from "./timers/aesthetic-pomodoro-timer/constants";
 import TimersHeader from "./timers/components/TimersHeader";
-import Background from "./timers/stopwatch/components/Background";
 
 const timers = [
   {
@@ -58,7 +59,14 @@ const Page = () => {
       <div className="relative space-y-3">
         <TimersHeader />
         <Container className="z-10 min-h-screen space-y-12 py-16">
-          <Background />
+          <Image
+            src={aestheticPomodoroTimerThemes[2].backgroundImage}
+            height={1000}
+            width={1000}
+            placeholder="blur"
+            alt={aestheticPomodoroTimerThemes[2].name}
+            className="pointer-events-none absolute top-0 left-0 -z-10 h-full w-screen object-cover"
+          />
           {/* Hero Section */}
           <section className="space-y-4 text-center">
             <h1 className="text-4xl font-bold md:text-6xl">YourOnlineClock</h1>
