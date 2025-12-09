@@ -6,6 +6,7 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { SITE_DATA } from "@/constant";
 import { TimersSettingsProvider } from "@/providers/TimersSettingsProvider";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -19,10 +20,37 @@ import TimersHeader from "../timers/components/TimersHeader";
 
 export default function ContactPage() {
   const [mounted, setMounted] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const mailtoLink = `mailto:${SITE_DATA.CONTACT_EMAIL}?subject=${encodeURIComponent(
+      formData.subject || "Contact Form Submission",
+    )}&body=${encodeURIComponent(
+      `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`,
+    )}`;
+
+    window.open(mailtoLink, "_blank");
+  };
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value,
+    });
+  };
 
   if (!mounted) {
     return null;
@@ -124,11 +152,17 @@ export default function ContactPage() {
               <Card className="border-border/50 bg-card/70 p-6 shadow-2xl backdrop-blur-lg sm:p-8">
                 <h2 className="mb-6 text-2xl font-bold">Send us a Message</h2>
 
-                <form className="space-y-6">
+                <form className="space-y-6" onSubmit={handleSubmit}>
                   <div className="grid gap-6 sm:grid-cols-2">
                     <div className="space-y-2">
                       <Label htmlFor="name">Name *</Label>
-                      <Input id="name" placeholder="Your name" required />
+                      <Input
+                        id="name"
+                        placeholder="Your name"
+                        required
+                        value={formData.name}
+                        onChange={handleChange}
+                      />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="email">Email *</Label>
@@ -137,6 +171,8 @@ export default function ContactPage() {
                         type="email"
                         placeholder="your.email@example.com"
                         required
+                        value={formData.email}
+                        onChange={handleChange}
                       />
                     </div>
                   </div>
@@ -147,6 +183,8 @@ export default function ContactPage() {
                       id="subject"
                       placeholder="What is this about?"
                       required
+                      value={formData.subject}
+                      onChange={handleChange}
                     />
                   </div>
 
@@ -157,6 +195,8 @@ export default function ContactPage() {
                       placeholder="Tell us more..."
                       rows={8}
                       required
+                      value={formData.message}
+                      onChange={handleChange}
                     />
                   </div>
 
