@@ -1,5 +1,6 @@
 "use client";
 
+import { SITE_DATA } from "@/constant";
 import Link from "next/link";
 import { FaEnvelope, FaGithub, FaTwitter } from "react-icons/fa";
 import Container from "../global/Container";
@@ -123,7 +124,7 @@ export default function Footer() {
                 <FaTwitter className="h-5 w-5" />
               </a>
               <a
-                href="mailto:support@youronlineclock.com"
+                href={`mailto:${SITE_DATA.CONTACT_EMAIL}`}
                 className="text-muted-foreground hover:text-primary transition-colors"
                 aria-label="Email"
               >

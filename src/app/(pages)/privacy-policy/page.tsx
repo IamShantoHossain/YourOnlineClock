@@ -1,22 +1,16 @@
-"use client";
-
 import Footer from "@/components/shared/Footer";
 import { Card } from "@/components/ui/card";
+import { SITE_DATA } from "@/constant";
 import { TimersSettingsProvider } from "@/providers/TimersSettingsProvider";
-import { useEffect, useState } from "react";
 import TimersHeader from "../timers/components/TimersHeader";
 
+export const metadata = {
+  title: "Privacy Policy | YourOnlineClock",
+  description:
+    "Read YourOnlineClock's Privacy Policy. Learn how we protect your privacy and handle your data while using our online timers, stopwatches, and Pomodoro tools.",
+};
+
 export default function PrivacyPolicyPage() {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
-    return null;
-  }
-
   return (
     <TimersSettingsProvider>
       <TimersHeader />
@@ -193,10 +187,10 @@ export default function PrivacyPolicyPage() {
                   </p>
                   <div className="bg-muted/20 mt-4 rounded-lg p-4 backdrop-blur-sm">
                     <p className="text-foreground font-medium">
-                      Email: support@youronlineclock.com
+                      Email: {SITE_DATA.CONTACT_EMAIL}
                     </p>
                     <p className="text-foreground font-medium">
-                      Phone: +1 (555) 123-4567
+                      Phone: {SITE_DATA.CONTACT_PHONE}
                     </p>
                   </div>
                 </section>

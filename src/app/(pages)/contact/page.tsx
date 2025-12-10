@@ -1,61 +1,20 @@
-"use client";
-
 import Footer from "@/components/shared/Footer";
-import { Button } from "@/components/ui/button";
+
 import { Card } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { SITE_DATA } from "@/constant";
 import { TimersSettingsProvider } from "@/providers/TimersSettingsProvider";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import {
-  FaEnvelope,
-  FaMapMarkerAlt,
-  FaPaperPlane,
-  FaPhone,
-} from "react-icons/fa";
+import { FaEnvelope, FaMapMarkerAlt, FaPhone } from "react-icons/fa";
 import TimersHeader from "../timers/components/TimersHeader";
+import ContactForm from "./ContactForm";
+
+export const metadata = {
+  title: "Contact Us | YourOnlineClock",
+  description:
+    "Get in touch with YourOnlineClock. Have questions or feedback about our timers and tools? We'd love to hear from you. Contact us today.",
+};
 
 export default function ContactPage() {
-  const [mounted, setMounted] = useState(false);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-  });
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    const mailtoLink = `mailto:${SITE_DATA.CONTACT_EMAIL}?subject=${encodeURIComponent(
-      formData.subject || "Contact Form Submission",
-    )}&body=${encodeURIComponent(
-      `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`,
-    )}`;
-
-    window.open(mailtoLink, "_blank");
-  };
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    setFormData({
-      ...formData,
-      [e.target.id]: e.target.value,
-    });
-  };
-
-  if (!mounted) {
-    return null;
-  }
-
   return (
     <TimersSettingsProvider>
       <TimersHeader />
@@ -64,7 +23,7 @@ export default function ContactPage() {
         <div className="relative z-10 mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="mb-12 text-center">
-            <h1 className="from-primary via-primary/80 to-primary/60 mb-4 bg-gradient-to-r bg-clip-text text-4xl font-bold text-transparent sm:text-5xl">
+            <h1 className="from-primary via-primary/80 to-primary/60 mb-4 bg-linear-to-r bg-clip-text text-4xl font-bold text-transparent sm:text-5xl">
               Contact Us
             </h1>
             <p className="text-muted-foreground mx-auto max-w-2xl text-lg">
@@ -87,7 +46,7 @@ export default function ContactPage() {
                     <div>
                       <h3 className="font-semibold">Email</h3>
                       <p className="text-muted-foreground text-sm">
-                        support@youronlineclock.com
+                        {SITE_DATA.CONTACT_EMAIL}
                       </p>
                     </div>
                   </div>
@@ -99,7 +58,7 @@ export default function ContactPage() {
                     <div>
                       <h3 className="font-semibold">Phone</h3>
                       <p className="text-muted-foreground text-sm">
-                        +1 (555) 123-4567
+                        {SITE_DATA.CONTACT_PHONE}
                       </p>
                     </div>
                   </div>
@@ -111,11 +70,9 @@ export default function ContactPage() {
                     <div>
                       <h3 className="font-semibold">Office</h3>
                       <p className="text-muted-foreground text-sm">
-                        123 Clock Street
+                        Gazipur, Dhaka
                         <br />
-                        Time Zone City, TC 12345
-                        <br />
-                        United States
+                        Bangladesh
                       </p>
                     </div>
                   </div>
@@ -151,64 +108,7 @@ export default function ContactPage() {
             <div className="lg:col-span-2">
               <Card className="border-border/50 bg-card/70 p-6 shadow-2xl backdrop-blur-lg sm:p-8">
                 <h2 className="mb-6 text-2xl font-bold">Send us a Message</h2>
-
-                <form className="space-y-6" onSubmit={handleSubmit}>
-                  <div className="grid gap-6 sm:grid-cols-2">
-                    <div className="space-y-2">
-                      <Label htmlFor="name">Name *</Label>
-                      <Input
-                        id="name"
-                        placeholder="Your name"
-                        required
-                        value={formData.name}
-                        onChange={handleChange}
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="email">Email *</Label>
-                      <Input
-                        id="email"
-                        type="email"
-                        placeholder="your.email@example.com"
-                        required
-                        value={formData.email}
-                        onChange={handleChange}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="subject">Subject *</Label>
-                    <Input
-                      id="subject"
-                      placeholder="What is this about?"
-                      required
-                      value={formData.subject}
-                      onChange={handleChange}
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="message">Message *</Label>
-                    <Textarea
-                      id="message"
-                      placeholder="Tell us more..."
-                      rows={8}
-                      required
-                      value={formData.message}
-                      onChange={handleChange}
-                    />
-                  </div>
-
-                  <Button
-                    type="submit"
-                    size="lg"
-                    className="w-full shadow-lg sm:w-auto"
-                  >
-                    <FaPaperPlane className="mr-2 h-4 w-4" />
-                    Send Message
-                  </Button>
-                </form>
+                <ContactForm />
               </Card>
             </div>
           </div>

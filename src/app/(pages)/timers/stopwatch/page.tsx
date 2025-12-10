@@ -3,8 +3,6 @@ import StopwatchContainer from "./components/StopwatchContainer";
 import { StopwatchFAQ } from "./components/StopwatchFAQ";
 import { StopwatchProvider } from "./context/StopwatchContext";
 
-export const dynamic = "force-dynamic";
-
 const Page = () => {
   return (
     <>

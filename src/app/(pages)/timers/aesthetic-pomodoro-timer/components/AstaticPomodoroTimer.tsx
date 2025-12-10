@@ -2,7 +2,6 @@
 
 import FocusMode from "@/components/shared/Timers/FocusMode";
 import { useEffect, useState } from "react";
-import { AiOutlineFullscreen, AiOutlineFullscreenExit } from "react-icons/ai";
 import { MainTimerWithDialog } from "./MainTimerWithDialog";
 
 const AstaticPomodoroTimer = () => {
@@ -32,8 +31,6 @@ const AstaticPomodoroTimer = () => {
     document.addEventListener("fullscreenchange", handler);
     return () => document.removeEventListener("fullscreenchange", handler);
   }, []);
-
-  const Logo = isFullscreen ? AiOutlineFullscreenExit : AiOutlineFullscreen;
 
   // Don't render background until mounted to avoid hydration issues
   if (!mounted) {

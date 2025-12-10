@@ -1,25 +1,13 @@
 "use client";
-
 import theme1Img from "@/assets/images/aesthetic-pomodoro-timer/theme6.jpg";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { FaArrowLeft, FaClock, FaHome } from "react-icons/fa";
 import { MdTimer } from "react-icons/md";
 
 export default function NotFound() {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
-    return null;
-  }
-
   return (
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden">
       {/* Background Image */}

@@ -2,9 +2,15 @@
 
 import Footer from "@/components/shared/Footer";
 import { Card } from "@/components/ui/card";
+import { SITE_DATA } from "@/constant";
 import { TimersSettingsProvider } from "@/providers/TimersSettingsProvider";
 import { useEffect, useState } from "react";
 import TimersHeader from "../timers/components/TimersHeader";
+
+// Note: This is a client component, so metadata should be added via next/head or moved to a parent server component
+// For now, adding a comment for SEO metadata that should be handled differently
+// Title: "Terms of Service | YourOnlineClock"
+// Description: "Read the Terms of Service for YourOnlineClock. Understand the terms and conditions for using our free online timers, stopwatches, and productivity tools."
 
 export default function TermsOfServicePage() {
   const [mounted, setMounted] = useState(false);
@@ -206,10 +212,10 @@ export default function TermsOfServicePage() {
                   </p>
                   <div className="bg-muted/20 mt-4 rounded-lg p-4 backdrop-blur-sm">
                     <p className="text-foreground font-medium">
-                      Email: support@youronlineclock.com
+                      Email: {SITE_DATA.CONTACT_EMAIL}
                     </p>
                     <p className="text-foreground font-medium">
-                      Phone: +1 (555) 123-4567
+                      Phone: {SITE_DATA.CONTACT_PHONE}
                     </p>
                   </div>
                 </section>

@@ -3,8 +3,6 @@ import MultiTimerContainer from "./components/MultiTimerContainer";
 import { MultiTimerFAQ } from "./components/MultiTimerFAQ";
 import { MultiTimerProvider } from "./context/MultiTimerContext";
 
-export const dynamic = "force-dynamic";
-
 const Page = () => {
   return (
     <>

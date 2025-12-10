@@ -145,7 +145,12 @@ const TimersHeader = () => {
           {/* Settings Sheet */}
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="rounded-full">
+              <Button
+                title="Settings"
+                variant="ghost"
+                size="icon"
+                className="rounded-full"
+              >
                 <Settings className="h-5 w-5" />
               </Button>
             </SheetTrigger>

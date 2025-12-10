@@ -71,10 +71,16 @@ export const MainTimerWithDialog = () => {
     return () => clearInterval(intervalRef.current!);
   }, [isRunning]);
 
-  // Update document title
+  // Update document title only when timer is running
   useEffect(() => {
-    document.title = `${formatTime(seconds)} • ${activeTimerMode}`;
-  }, [seconds, activeTimerMode]);
+    if (isRunning) {
+      document.title = `${formatTime(seconds)} • ${activeTimerMode}`;
+    } else {
+      // Reset to SEO-friendly title when timer is not running
+      document.title =
+        "Aesthetic Pomodoro Timer – Boost Focus & Productivity Online";
+    }
+  }, [seconds, activeTimerMode, isRunning]);
 
   // Handlers
   const startTimer = () => {
