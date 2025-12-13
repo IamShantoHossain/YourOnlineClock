@@ -40,17 +40,7 @@ export const metadata: Metadata = {
     description:
       "Free online timing tools for productivity. Pomodoro timer, stopwatch, and multi-timer with beautiful themes. No registration required.",
   },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
+
   // icons: {
   //   icon: "/favicon.ico",
   //   apple: "/apple-touch-icon.png",
