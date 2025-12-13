@@ -7,8 +7,8 @@ First, run the development server:
 ```bash
 npm run dev
 # ordsff
-yarn devf
-# orsdf
+yarn devff
+# orsdf 
 a
 
 pnpm devf 
