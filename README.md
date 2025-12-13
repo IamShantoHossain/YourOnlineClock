@@ -7,7 +7,7 @@ First, run the development server:
 ```bash
 npm run dev
 # ordsff
-yarn devf
+yarn devff
 # orsdf
 a
 
