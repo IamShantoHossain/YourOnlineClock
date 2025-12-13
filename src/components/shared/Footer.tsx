@@ -1,8 +1,6 @@
 "use client";
 
-import { SITE_DATA } from "@/constant";
 import Link from "next/link";
-import { FaEnvelope, FaGithub, FaTwitter } from "react-icons/fa";
 import Container from "../global/Container";
 
 const footerBlockedPaths = ["/timers/"];
@@ -102,7 +100,7 @@ export default function Footer() {
           </div>
 
           {/* Social */}
-          <div className="space-y-3">
+          {/* <div className="space-y-3">
             <h4 className="font-semibold">Connect</h4>
             <div className="flex gap-4">
               <a
@@ -131,7 +129,7 @@ export default function Footer() {
                 <FaEnvelope className="h-5 w-5" />
               </a>
             </div>
-          </div>
+          </div> */}
         </div>
 
         {/* Bottom */}
