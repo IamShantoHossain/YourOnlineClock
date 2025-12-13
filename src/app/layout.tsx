@@ -66,7 +66,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <AdSense pId="ca-pub-4524794510936601" />
+        <AdSense pId="4524794510936601" />
       </head>
       <body className={`${grotesk.className} antialiased`}>
         <GlobalProvider>
