@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Space_Grotesk } from "next/font/google";
 
+import AdSense from "@/components/global/AdSense";
 import GlobalProvider from "@/providers/GlobalProvider";
 import "@/styles/globals.css";
 
@@ -64,6 +65,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <AdSense pId="ca-pub-4524794510936601" />
+      </head>
       <body className={`${grotesk.className} antialiased`}>
         <GlobalProvider>
           <main className="flex h-full min-h-dvh flex-col">{children}</main>
