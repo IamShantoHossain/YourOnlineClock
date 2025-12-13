@@ -111,7 +111,7 @@ const TimersHeader = () => {
         <div className="flex items-center gap-4 sm:gap-8">
           <Link href="/">
             <H2 className="from-primary to-primary/95 bg-linear-to-r bg-clip-text text-base font-black text-transparent sm:text-xl md:text-2xl">
-              YourClockOnline
+              YourOnlineClock
             </H2>
           </Link>
 
