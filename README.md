@@ -12,7 +12,7 @@ yarn devff
 a
 
 pnpm devf 
-# or
+# or 
 bun deva
 ```
 
