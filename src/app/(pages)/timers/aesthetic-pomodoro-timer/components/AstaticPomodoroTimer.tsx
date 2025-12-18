@@ -4,7 +4,7 @@ import FocusMode from "@/components/shared/Timers/FocusMode";
 import { useEffect, useState } from "react";
 import { MainTimerWithDialog } from "./MainTimerWithDialog";
 
-const AstaticPomodoroTimer = () => {
+const AstaticPomodoroTimer = ({ staticTimer }: { staticTimer?: number }) => {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
@@ -12,15 +12,6 @@ const AstaticPomodoroTimer = () => {
   useEffect(() => {
     setMounted(true);
   }, []);
-
-  // Handle fullscreen toggle
-  const toggleFullscreen = () => {
-    if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen?.();
-    } else {
-      document.exitFullscreen?.();
-    }
-  };
 
   // Detect fullscreen changes
   useEffect(() => {
@@ -46,7 +37,7 @@ const AstaticPomodoroTimer = () => {
   return (
     <div className="relative flex h-full flex-1 items-center justify-center">
       <div className="text-foreground flex flex-col items-center justify-center gap-5">
-        <MainTimerWithDialog />
+        <MainTimerWithDialog staticTimer={staticTimer} />
 
         <FocusMode />
       </div>

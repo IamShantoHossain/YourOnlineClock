@@ -13,7 +13,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="space-y-3">
             <h3 className="from-primary to-primary/80 bg-gradient-to-r bg-clip-text text-lg font-bold text-transparent">
-              YourClockOnline
+              YourOnlineClock
             </h3>
             <p className="text-muted-foreground text-sm">
               Your essential time management tools - Pomodoro timers,
@@ -47,6 +47,46 @@ export default function Footer() {
                   className="text-muted-foreground hover:text-primary text-sm transition-colors"
                 >
                   Multi Timer
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/timers/5-minute"
+                  className="text-muted-foreground hover:text-primary text-sm transition-colors"
+                >
+                  5-Minute Timer
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/timers/10-minute"
+                  className="text-muted-foreground hover:text-primary text-sm transition-colors"
+                >
+                  10-Minute Timer
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/timers/15-minute"
+                  className="text-muted-foreground hover:text-primary text-sm transition-colors"
+                >
+                  15-Minute Timer
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/timers/30-minute"
+                  className="text-muted-foreground hover:text-primary text-sm transition-colors"
+                >
+                  30-Minute Timer
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/timers/1-hour"
+                  className="text-muted-foreground hover:text-primary text-sm transition-colors"
+                >
+                  1-Hour Timer
                 </Link>
               </li>
             </ul>
@@ -135,7 +175,7 @@ export default function Footer() {
         {/* Bottom */}
         <div className="border-border/50 mt-8 border-t pt-6">
           <p className="text-muted-foreground text-center text-sm">
-            © {new Date().getFullYear()} YourClockOnline. All rights reserved.
+            © {new Date().getFullYear()} YourOnlineClock. All rights reserved.
           </p>
         </div>
       </Container>

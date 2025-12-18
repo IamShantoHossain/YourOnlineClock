@@ -13,7 +13,7 @@ const grotesk = Space_Grotesk({
 export const metadata: Metadata = {
   title: "YourOnlineClock - Free Online Timers, Stopwatch & Pomodoro Timer",
   description:
-    "Free online timing tools for productivity and time management. Features aesthetic Pomodoro timer, precision stopwatch, and multi-timer. No registration required. Works offline with beautiful themes.",
+    "Free online timing tools for productivity and time management. Features aesthetic Pomodoro timer, precision stopwatch, and multi-timer. No registration required. Works offline with beautiful themes. Learn who these tools are for, how to use them, and their timezone accuracy.",
   keywords: [
     "online timer",
     "stopwatch",
@@ -27,6 +27,10 @@ export const metadata: Metadata = {
     "aesthetic timer",
     "multi timer",
     "youronlineclock",
+    "time zone accuracy",
+    "how to use timer",
+    "timer for students",
+    "timer for professionals",
   ],
   authors: [{ name: "YourOnlineClock" }],
   creator: "YourOnlineClock",
@@ -38,7 +42,7 @@ export const metadata: Metadata = {
     siteName: "YourOnlineClock",
     title: "YourOnlineClock - Free Online Timers, Stopwatch & Pomodoro Timer",
     description:
-      "Free online timing tools for productivity. Pomodoro timer, stopwatch, and multi-timer with beautiful themes. No registration required.",
+      "Free online timing tools for productivity. Pomodoro timer, stopwatch, and multi-timer with beautiful themes. No registration required. Learn how to use these tools and their timezone accuracy.",
   },
 
   // icons: {
