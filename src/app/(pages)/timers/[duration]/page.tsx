@@ -113,7 +113,7 @@ const Page = async ({ params }: { params: Promise<{ duration: string }> }) => {
   }
 
   const timer = duration.split("-")[0];
-  const staticTimer = parseInt(timer, 10);
+  const staticTimer = getTimerInMinutes(duration) ?? 5;
 
   return (
     <>
