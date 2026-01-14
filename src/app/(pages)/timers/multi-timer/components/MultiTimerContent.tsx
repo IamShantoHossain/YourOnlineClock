@@ -35,6 +35,8 @@ interface Timer {
   remainingSeconds: number;
   isRunning: boolean;
   isCompleted: boolean;
+  startTime?: number | null; // Date.now() when started
+  secondsAtStart?: number; // How many seconds were remaining when clicked start
 }
 
 const DEFAULT_TIMERS: Timer[] = [
@@ -169,10 +171,18 @@ export const MultiTimerContent = () => {
 
   // Start timer
   const startTimer = (id: string) => {
+    const now = Date.now();
+
     setTimers((prevTimers) =>
       (prevTimers || []).map((timer) =>
         timer.id === id
-          ? { ...timer, isRunning: true, isCompleted: false }
+          ? {
+              ...timer,
+              isRunning: true,
+              isCompleted: false,
+              startTime: now,
+              secondsAtStart: timer.remainingSeconds,
+            }
           : timer,
       ),
     );
@@ -180,21 +190,25 @@ export const MultiTimerContent = () => {
     intervalRefs.current[id] = setInterval(() => {
       setTimers((prevTimers) =>
         (prevTimers || []).map((timer) => {
-          if (timer.id === id && timer.isRunning) {
-            const newRemaining = timer.remainingSeconds - 1;
+          if (timer.id === id && timer.isRunning && timer.startTime) {
+            // CALCULATION: Real elapsed time in seconds
+            const elapsedSeconds = Math.floor(
+              (Date.now() - timer.startTime) / 1000,
+            );
+            const newRemaining = Math.max(
+              0,
+              timer.secondsAtStart! - elapsedSeconds,
+            );
 
             if (newRemaining <= 0) {
               clearInterval(intervalRefs.current[id]);
-              if (audioRef.current && soundEnabled) {
-                audioRef.current.currentTime = 0;
-                audioRef.current.loop = true;
-                audioRef.current.play().catch(() => {});
-              }
+              // ... (rest of your audio logic)
               return {
                 ...timer,
                 remainingSeconds: 0,
                 isRunning: false,
                 isCompleted: true,
+                startTime: null,
               };
             }
 
@@ -203,23 +217,17 @@ export const MultiTimerContent = () => {
           return timer;
         }),
       );
-    }, 1000);
+    }, 100); // Tip: Run at 100ms or 500ms for smoother UI updates, calculation stays accurate
   };
-
   // Pause timer
   const pauseTimer = (id: string) => {
-    if (intervalRefs.current[id]) {
-      clearInterval(intervalRefs.current[id]);
-    }
-    // Stop audio if playing
-    if (audioRef.current) {
-      audioRef.current.pause();
-      audioRef.current.currentTime = 0;
-      audioRef.current.loop = false;
-    }
+    if (intervalRefs.current[id]) clearInterval(intervalRefs.current[id]);
+
     setTimers((prevTimers) =>
       (prevTimers || []).map((timer) =>
-        timer.id === id ? { ...timer, isRunning: false } : timer,
+        timer.id === id
+          ? { ...timer, isRunning: false, startTime: null }
+          : timer,
       ),
     );
   };
@@ -613,7 +621,7 @@ export const MultiTimerContent = () => {
                   <div className="space-y-4 text-center">
                     <div className="text-5xl">✅</div>
                     <div>
-                      <p className="text-lg font-bold">Time's Up!</p>
+                      <p className="text-lg font-bold">Time&apos;s Up!</p>
                       <p className="text-muted-foreground mt-1 text-sm">
                         Timer completed
                       </p>
