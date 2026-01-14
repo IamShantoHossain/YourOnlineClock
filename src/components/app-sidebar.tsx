@@ -16,7 +16,7 @@ import assets from "@/lib/assets";
 import { AvatarImage } from "@radix-ui/react-avatar";
 import Image from "next/image";
 import Link from "next/link";
-import { BsBoxSeamFill, BsGear } from "react-icons/bs";
+import { BsReverseLayoutTextWindowReverse } from "react-icons/bs";
 import { LuLayoutGrid } from "react-icons/lu";
 import SidebarSignoutButton from "./SidebarSignoutButton";
 import { Avatar, AvatarFallback } from "./ui/avatar";
@@ -33,15 +33,11 @@ const data = {
           url: "dashboard",
           icon: LuLayoutGrid,
         },
+
         {
-          title: "Categories",
-          url: "categories",
-          icon: BsBoxSeamFill,
-        },
-        {
-          title: "Settings",
-          url: "settings",
-          icon: BsGear,
+          title: "Blogs",
+          url: "blogs",
+          icon: BsReverseLayoutTextWindowReverse,
         },
       ],
     },
@@ -62,7 +58,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             width={612}
             height={408}
             className="h-[inherit] w-fit"
-            placeholder="blur"
           />
         </Link>
       </SidebarHeader>
