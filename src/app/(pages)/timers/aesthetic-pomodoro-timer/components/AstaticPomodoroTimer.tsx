@@ -12,16 +12,6 @@ const AstaticPomodoroTimer = ({ staticTimer }: { staticTimer?: number }) => {
     setMounted(true);
   }, []);
 
-  // Detect fullscreen changes
-  useEffect(() => {
-    const handler = () => {
-      setIsFullscreen(Boolean(document.fullscreenElement));
-    };
-
-    document.addEventListener("fullscreenchange", handler);
-    return () => document.removeEventListener("fullscreenchange", handler);
-  }, []);
-
   // Don't render background until mounted to avoid hydration issues
   if (!mounted) {
     return (
