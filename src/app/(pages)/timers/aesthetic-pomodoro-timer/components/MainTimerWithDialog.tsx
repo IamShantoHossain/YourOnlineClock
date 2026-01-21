@@ -32,75 +32,13 @@ export const MainTimerWithDialog = ({
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const endTimeRef = useRef<number | null>(null);
+
   const endSound = useRef(
     typeof Audio !== "undefined"
       ? new Audio("/assets/sounds/asthatic-alerm.mp3")
       : null,
   );
-
-  // Prevent tab close
-  usePreventClose(isRunning);
-
-  // Selected timer memoized (only if staticTimer not provided)
-  const selectedTimer = useMemo(
-    () => timerOptions.find((t) => t.title === activeTimerMode) || { time: 15 },
-    [activeTimerMode, timerOptions],
-  );
-
-  // Reset timer whenever activeTimerMode or timerOptions change (only for dynamic mode)
-  useEffect(() => {
-    if (!staticTimer) resetTimer();
-  }, [selectedTimer, timerOptions, activeTimerMode]);
-
-  // Timer countdown
-  useEffect(() => {
-    if (!isRunning) return;
-
-    intervalRef.current = setInterval(() => {
-      setSeconds((prev) => {
-        if (prev <= 1) {
-          clearInterval(intervalRef.current!);
-          setIsRunning(false);
-          playAlarm();
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-
-    return () => clearInterval(intervalRef.current!);
-  }, [isRunning]);
-
-  // Update document title
-  useEffect(() => {
-    if (isRunning) {
-      document.title = `${formatTime(seconds)} • ${
-        staticTimer ? "Timer" : activeTimerMode
-      }`;
-    } else {
-      document.title =
-        "Aesthetic Pomodoro Timer – Boost Focus & Productivity Online";
-    }
-  }, [seconds, activeTimerMode, isRunning, staticTimer]);
-
-  // Handlers
-  const startTimer = () => {
-    if (seconds > 0) setIsRunning(true);
-    stopAlarm();
-  };
-
-  const pauseTimer = () => {
-    setIsRunning(false);
-    clearInterval(intervalRef.current!);
-    stopAlarm();
-  };
-
-  const resetTimer = () => {
-    clearInterval(intervalRef.current!);
-    setSeconds(staticTimer ? staticTimer * 60 : selectedTimer.time * 60);
-    setIsRunning(false);
-    stopAlarm();
-  };
 
   const playAlarm = () => {
     if (sound && endSound.current) {
@@ -123,6 +61,29 @@ export const MainTimerWithDialog = ({
     }
 
     setIsDialogOpen(true);
+  };
+
+  // Handlers
+  const startTimer = () => {
+    if (seconds > 0) {
+      // Current time + remaining seconds (converted to ms)
+      endTimeRef.current = Date.now() + seconds * 1000;
+      setIsRunning(true);
+    }
+    stopAlarm();
+  };
+
+  const pauseTimer = () => {
+    setIsRunning(false);
+    clearInterval(intervalRef.current!);
+    stopAlarm();
+  };
+
+  const resetTimer = () => {
+    clearInterval(intervalRef.current!);
+    setSeconds(staticTimer ? staticTimer * 60 : selectedTimer.time * 60);
+    setIsRunning(false);
+    stopAlarm();
   };
 
   const stopAlarm = () => {
@@ -149,6 +110,56 @@ export const MainTimerWithDialog = ({
       "0",
     )}`;
   };
+
+  // Prevent tab close
+  usePreventClose(isRunning);
+
+  // Selected timer memoized (only if staticTimer not provided)
+  const selectedTimer = useMemo(
+    () => timerOptions.find((t) => t.title === activeTimerMode) || { time: 15 },
+    [activeTimerMode, timerOptions],
+  );
+
+  // Reset timer whenever activeTimerMode or timerOptions change (only for dynamic mode)
+  useEffect(() => {
+    if (!staticTimer) resetTimer();
+  }, [selectedTimer, timerOptions, activeTimerMode]);
+
+  // Timer countdown
+  useEffect(() => {
+    if (!isRunning || !endTimeRef.current) return;
+
+    // Run more frequently (e.g., every 100ms) to ensure the UI stays snappy,
+    // but the calculation remains accurate to the millisecond.
+    intervalRef.current = setInterval(() => {
+      const now = Date.now();
+      const remainingMs = endTimeRef.current! - now;
+
+      if (remainingMs <= 0) {
+        setSeconds(0);
+        setIsRunning(false);
+        clearInterval(intervalRef.current!);
+        playAlarm();
+      } else {
+        // Round up so the display feels natural (e.g., 59.2s shows as 60s)
+        setSeconds(Math.ceil(remainingMs / 1000));
+      }
+    }, 200); // Check frequently for accuracy
+
+    return () => clearInterval(intervalRef.current!);
+  }, [isRunning]);
+
+  // Update document title
+  useEffect(() => {
+    if (isRunning) {
+      document.title = `${formatTime(seconds)} • ${
+        staticTimer ? "Timer" : activeTimerMode
+      }`;
+    } else {
+      document.title =
+        "Aesthetic Pomodoro Timer – Boost Focus & Productivity Online";
+    }
+  }, [seconds, activeTimerMode, isRunning, staticTimer]);
 
   return (
     <>

@@ -25,6 +25,9 @@ export const Stopwatch = () => {
   const { showMilliseconds } = useTimersSettings();
 
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const startTimeRef = useRef<number>(0);
+  const accumulatedTimeRef = useRef<number>(0);
+
   const previousLapTime = useRef(0);
 
   // Format time helper function
@@ -53,11 +56,18 @@ export const Stopwatch = () => {
 
   // Stopwatch counter
   useEffect(() => {
-    if (!isRunning) return;
+    if (isRunning) {
+      // Synchronize the start point with the system clock
+      startTimeRef.current = Date.now() - accumulatedTimeRef.current;
 
-    intervalRef.current = setInterval(() => {
-      setMilliseconds((prev) => prev + 10);
-    }, 10);
+      intervalRef.current = setInterval(() => {
+        const currentElapsed = Date.now() - startTimeRef.current;
+        setMilliseconds(currentElapsed);
+        accumulatedTimeRef.current = currentElapsed; // Keep track of progress
+      }, 10);
+    } else {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    }
 
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
@@ -74,14 +84,15 @@ export const Stopwatch = () => {
 
   const pauseTimer = () => {
     setIsRunning(false);
-    if (intervalRef.current) clearInterval(intervalRef.current);
+    // Lock in the accumulated time exactly when paused
+    accumulatedTimeRef.current = Date.now() - startTimeRef.current;
   };
 
   const resetTimer = () => {
     setIsRunning(false);
-    if (intervalRef.current) clearInterval(intervalRef.current);
     setMilliseconds(0);
     setLaps([]);
+    accumulatedTimeRef.current = 0; // Reset the baseline
     previousLapTime.current = 0;
     document.title = "Stopwatch";
   };

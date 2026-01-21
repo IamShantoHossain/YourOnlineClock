@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { MainTimerWithDialog } from "./MainTimerWithDialog";
 
 const AstaticPomodoroTimer = ({ staticTimer }: { staticTimer?: number }) => {
-  const [isFullscreen, setIsFullscreen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   // Ensure component is mounted to avoid hydration mismatch
