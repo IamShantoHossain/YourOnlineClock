@@ -2,7 +2,7 @@ import Footer from "@/components/shared/Footer";
 import { Card } from "@/components/ui/card";
 import { SITE_DATA } from "@/constant";
 import { TimersSettingsProvider } from "@/providers/TimersSettingsProvider";
-import TimersHeader from "../timers/components/TimersHeader";
+import TimersHeader from "../(timers)/components/TimersHeader";
 
 export const metadata = {
   title: "Privacy Policy | YourOnlineClock",

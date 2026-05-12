@@ -4,7 +4,7 @@ import { H1, H2, P } from "@/components/ui/typography";
 import { TimersSettingsProvider } from "@/providers/TimersSettingsProvider";
 import { Clock, Heart, Users, Zap } from "lucide-react";
 import Link from "next/link";
-import TimersHeader from "../timers/components/TimersHeader";
+import TimersHeader from "../(timers)/components/TimersHeader";
 
 export const metadata = {
   title: "About Us | YourOnlineClock",

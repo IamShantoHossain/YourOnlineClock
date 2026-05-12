@@ -1,6 +1,6 @@
 "use client";
 
-import { aestheticPomodoroTimerThemes } from "@/app/(pages)/timers/aesthetic-pomodoro-timer/constants";
+import { aestheticPomodoroTimerThemes } from "@/app/(pages)/(timers)/aesthetic-pomodoro-timer/constants";
 import { useTheme } from "next-themes";
 import { createContext, ReactNode, useContext } from "react";
 import useLocalStorage from "use-local-storage";

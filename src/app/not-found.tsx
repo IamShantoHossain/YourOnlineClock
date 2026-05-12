@@ -64,13 +64,13 @@ export default function NotFound() {
                     <p className="text-sm font-medium">Home</p>
                   </Card>
                 </Link>
-                <Link href="/timers/aesthetic-pomodoro-timer" className="group">
+                <Link href="/aesthetic-pomodoro-timer" className="group">
                   <Card className="border-border/50 bg-card/40 hover:bg-card/60 hover:border-primary/50 cursor-pointer p-4 text-center transition-all hover:shadow-lg">
                     <MdTimer className="text-primary mx-auto mb-2 h-6 w-6 transition-transform group-hover:scale-110" />
                     <p className="text-sm font-medium">Pomodoro</p>
                   </Card>
                 </Link>
-                <Link href="/timers/stopwatch" className="group">
+                <Link href="/stopwatch" className="group">
                   <Card className="border-border/50 bg-card/40 hover:bg-card/60 hover:border-primary/50 cursor-pointer p-4 text-center transition-all hover:shadow-lg">
                     <FaClock className="text-primary mx-auto mb-2 h-6 w-6 transition-transform group-hover:scale-110" />
                     <p className="text-sm font-medium">Stopwatch</p>

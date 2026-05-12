@@ -5,7 +5,7 @@ import { SITE_DATA } from "@/constant";
 import { TimersSettingsProvider } from "@/providers/TimersSettingsProvider";
 import Link from "next/link";
 import { FaEnvelope, FaMapMarkerAlt, FaPhone } from "react-icons/fa";
-import TimersHeader from "../timers/components/TimersHeader";
+import TimersHeader from "../(timers)/components/TimersHeader";
 import ContactForm from "./ContactForm";
 
 export const metadata = {
@@ -83,7 +83,7 @@ export default function ContactPage() {
                 <h2 className="mb-4 text-xl font-bold">Quick Links</h2>
                 <div className="space-y-2">
                   <Link
-                    href="/timers/aesthetic-pomodoro-timer"
+                    href="/aesthetic-pomodoro-timer"
                     className="text-muted-foreground hover:text-primary block text-sm transition-colors"
                   >
                     Back to Timers

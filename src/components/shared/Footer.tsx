@@ -27,7 +27,7 @@ export default function Footer() {
             <ul className="space-y-2">
               <li>
                 <Link
-                  href="/timers/aesthetic-pomodoro-timer"
+                  href="/aesthetic-pomodoro-timer"
                   className="text-muted-foreground hover:text-primary text-sm transition-colors"
                 >
                   Pomodoro Timer
@@ -35,7 +35,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/timers/stopwatch"
+                  href="/stopwatch"
                   className="text-muted-foreground hover:text-primary text-sm transition-colors"
                 >
                   Stopwatch
@@ -43,7 +43,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/timers/multi-timer"
+                  href="/multi-timer"
                   className="text-muted-foreground hover:text-primary text-sm transition-colors"
                 >
                   Multi Timer
@@ -51,7 +51,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/timers/5-minute"
+                  href="/5-minute"
                   className="text-muted-foreground hover:text-primary text-sm transition-colors"
                 >
                   5-Minute Timer
@@ -59,7 +59,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/timers/10-minute"
+                  href="/10-minute"
                   className="text-muted-foreground hover:text-primary text-sm transition-colors"
                 >
                   10-Minute Timer
@@ -67,7 +67,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/timers/15-minute"
+                  href="/15-minute"
                   className="text-muted-foreground hover:text-primary text-sm transition-colors"
                 >
                   15-Minute Timer
@@ -75,7 +75,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/timers/30-minute"
+                  href="/30-minute"
                   className="text-muted-foreground hover:text-primary text-sm transition-colors"
                 >
                   30-Minute Timer
@@ -83,7 +83,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/timers/1-hour"
+                  href="/1-hour"
                   className="text-muted-foreground hover:text-primary text-sm transition-colors"
                 >
                   1-Hour Timer

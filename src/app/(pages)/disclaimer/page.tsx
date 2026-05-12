@@ -3,7 +3,7 @@ import Footer from "@/components/shared/Footer";
 import { H1, H2, P } from "@/components/ui/typography";
 import { TimersSettingsProvider } from "@/providers/TimersSettingsProvider";
 import Link from "next/link";
-import TimersHeader from "../timers/components/TimersHeader";
+import TimersHeader from "../(timers)/components/TimersHeader";
 
 export const metadata = {
   title: "Disclaimer | YourOnlineClock",

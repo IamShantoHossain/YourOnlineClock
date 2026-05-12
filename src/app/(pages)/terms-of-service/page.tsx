@@ -5,7 +5,7 @@ import { Card } from "@/components/ui/card";
 import { SITE_DATA } from "@/constant";
 import { TimersSettingsProvider } from "@/providers/TimersSettingsProvider";
 import { useEffect, useState } from "react";
-import TimersHeader from "../timers/components/TimersHeader";
+import TimersHeader from "../(timers)/components/TimersHeader";
 
 // Note: This is a client component, so metadata should be added via next/head or moved to a parent server component
 // For now, adding a comment for SEO metadata that should be handled differently
