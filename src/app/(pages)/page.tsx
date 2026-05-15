@@ -5,8 +5,8 @@ import { TimersSettingsProvider } from "@/providers/TimersSettingsProvider";
 import Image from "next/image";
 import Link from "next/link";
 import { FaClock, FaRegClock, FaStopwatch } from "react-icons/fa";
-import { aestheticPomodoroTimerThemes } from "./timers/aesthetic-pomodoro-timer/constants";
-import TimersHeader from "./timers/components/TimersHeader";
+import { aestheticPomodoroTimerThemes } from "./(timers)/aesthetic-pomodoro-timer/constants";
+import TimersHeader from "./(timers)/components/TimersHeader";
 
 const timers = [
   {
@@ -14,7 +14,7 @@ const timers = [
     description:
       "Boost productivity with the proven Pomodoro Technique. Work in focused 25-minute intervals with beautiful themes.",
     icon: FaClock,
-    href: "/timers/aesthetic-pomodoro-timer",
+    href: "/aesthetic-pomodoro-timer",
     features: [
       "25-minute focus sessions",
       "Customizable breaks",
@@ -28,7 +28,7 @@ const timers = [
     description:
       "Track time with millisecond precision. Perfect for workouts, cooking, studying, and sports.",
     icon: FaStopwatch,
-    href: "/timers/stopwatch",
+    href: "/stopwatch",
     features: [
       "Millisecond precision",
       "Start/Pause/Reset",
@@ -42,7 +42,7 @@ const timers = [
     description:
       "Run unlimited timers simultaneously. Ideal for managing multiple tasks, cooking, and interval training.",
     icon: FaRegClock,
-    href: "/timers/multi-timer",
+    href: "/multi-timer",
     features: [
       "Unlimited timers",
       "Custom durations",

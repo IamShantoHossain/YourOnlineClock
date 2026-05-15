@@ -88,9 +88,9 @@ const TimersHeader = () => {
   }, []);
 
   const navLinks = [
-    { title: "Pomodoro", href: "/timers/aesthetic-pomodoro-timer" },
-    { title: "Stopwatch", href: "/timers/stopwatch" },
-    { title: "Timer", href: "/timers/multi-timer" },
+    { title: "Pomodoro", href: "/aesthetic-pomodoro-timer" },
+    { title: "Stopwatch", href: "/stopwatch" },
+    { title: "Timer", href: "/multi-timer" },
   ];
 
   const utilityLinks = [{ title: "Contact", href: "/contact" }];
