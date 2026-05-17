@@ -10,15 +10,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Debug secrets (SAFE)
+      - name: Test connection
         run: |
-          echo "🔍 VPS_IP = ${{ secrets.VPS_IP }}"
-          echo "🔍 VPS_USER = ${{ secrets.VPS_USER }}"
-          echo "🔍 VPS_PORT = ${{ secrets.VPS_PORT }}"
-
-      - name: Test SSH port connection
-        run: |
-          echo "Testing connection to VPS..."
+          echo "Testing VPS connection..."
           nc -zv ${{ secrets.VPS_IP }} ${{ secrets.VPS_PORT }}
 
       - name: Deploy via SSH
@@ -30,39 +24,65 @@ jobs:
           port: ${{ secrets.VPS_PORT }}
 
           script: |
-            echo "========================"
-            echo "🚀 CONNECTED TO VPS"
-            echo "========================"
+            set -e
 
-            echo "📍 Current user:"
-            whoami
+            echo "============================"
+            echo "🚀 START DEPLOY"
+            echo "============================"
 
-            echo "📍 Current directory:"
-            pwd
+            # Force login shell so root env loads properly
+            bash -l -c '
 
-            echo "📍 Node version:"
-            node -v || echo "Node not found"
+            echo "👤 User: $(whoami)"
+            echo "📁 Home: $HOME"
+            echo "📌 PATH: $PATH"
 
-            echo "📍 Bun version:"
-            bun -v || echo "Bun not found"
+            # Load environment (VERY IMPORTANT for bun/npm/pm2)
+            source ~/.bashrc || true
+            source ~/.profile || true
 
-            echo "📍 PM2 status:"
-            pm2 list || echo "PM2 not found"
+            export PATH=$PATH:/root/.bun/bin:/root/.npm-global/bin
 
-            echo "========================"
-            echo "📦 DEPLOY START"
-            echo "========================"
+            echo "============================"
+            echo "🔧 Checking tools"
+            echo "============================"
+
+            node -v || echo "❌ Node missing"
+            npm -v || echo "❌ NPM missing"
+            bun -v || echo "❌ Bun missing"
+            pm2 -v || echo "❌ PM2 missing"
+
+            echo "============================"
+            echo "📂 Moving to project"
+            echo "============================"
 
             cd /var/www/websites/OnlineClock
 
+            echo "📥 Pulling latest code..."
             git pull origin main
 
-            bun install || npm install
+            echo "============================"
+            echo "📦 Installing dependencies"
+            echo "============================"
 
-            bun run build || npm run build || echo "No build step"
+            npm install
+
+            echo "============================"
+            echo "🏗️ Building project"
+            echo "============================"
+
+            npm run build || echo "No build step"
+
+            echo "============================"
+            echo "🔁 Restarting PM2"
+            echo "============================"
 
             pm2 restart OnlineClock || pm2 start npm --name "OnlineClock" -- start
 
-            echo "========================"
-            echo "✅ DEPLOY DONE"
-            echo "========================"
+            pm2 save
+
+            echo "============================"
+            echo "✅ DEPLOY SUCCESS"
+            echo "============================"
+
+            '
