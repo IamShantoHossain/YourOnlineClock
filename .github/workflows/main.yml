@@ -14,7 +14,7 @@ jobs:
         with:
           host: ${{ secrets.VPS_IP}}
           username: ${{secrets.VPS_USER}}
-          port: ${secrets.VPS_PORT}}
+          port: ${{secrets.VPS_PORT}}
           password: ${{secrets.VPS_PASSWORD}}
           script: | 
             echo "Connected to the vps"
