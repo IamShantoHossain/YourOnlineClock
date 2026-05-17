@@ -10,12 +10,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Deploy to VPS via SSH
+      - name: Deploy via SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.VPS_IP }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
+          port: ${{ secrets.VPS_PORT }}
+
           script: |
             set -e
 
@@ -24,20 +26,13 @@ jobs:
             echo "📥 Pulling latest code..."
             git pull origin main
 
-            echo "📦 Checking runtime versions..."
-            node -v || true
-            bun -v || true
-
             echo "📦 Installing dependencies..."
             bun install || npm install
 
             echo "🏗️ Building project..."
             bun run build || npm run build || echo "No build step"
 
-            echo "🚀 Restarting app with PM2..."
-
-            pm2 list
-
+            echo "🔁 Restarting PM2..."
             pm2 restart OnlineClock || pm2 start npm --name "OnlineClock" -- start
 
-            echo "✅ Deployment completed successfully"
+            echo "✅ Deployment successful"
