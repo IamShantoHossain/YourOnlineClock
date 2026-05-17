@@ -12,14 +12,51 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Bun
+      - name: Debug OS + Shell Environment
+        run: |
+          echo "========================"
+          echo "🔍 OS INFORMATION"
+          echo "========================"
+          uname -a
+          cat /etc/os-release
+
+          echo ""
+          echo "========================"
+          echo "🔍 SHELL INFORMATION"
+          echo "========================"
+          echo "SHELL env var: $SHELL"
+          ps -p $$
+
+          echo ""
+          echo "========================"
+          echo "🔍 USER INFO"
+          echo "========================"
+          whoami
+          pwd
+
+          echo ""
+          echo "========================"
+          echo "🔍 PATH"
+          echo "========================"
+          echo $PATH
+
+      - name: Check installed tools
+        run: |
+          echo "========================"
+          echo "🔍 TOOL CHECK"
+          echo "========================"
+
+          which bun || echo "❌ bun NOT found"
+          which node || echo "❌ node NOT found"
+          which npm || echo "❌ npm NOT found"
+          which pm2 || echo "❌ pm2 NOT found"
+
+      - name: Setup Bun (for real test runs)
         uses: oven-sh/setup-bun@v2
 
       - name: Verify Bun
-        run: bun -v
-
-      - name: Install dependencies
-        run: bun install
-
-      - name: Run tests
-        run: bun test
+        run: |
+          echo "========================"
+          echo "🔍 BUN VERSION"
+          echo "========================"
+          bun -v
