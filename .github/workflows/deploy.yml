@@ -30,30 +30,33 @@ jobs:
             echo "🚀 START DEPLOY"
             echo "============================"
 
-            # Force login shell so root env loads properly
-            bash -l -c '
+            # ============================
+            # 🔥 FORCE LOAD ENV (IMPORTANT FIX)
+            # ============================
 
-            echo "👤 User: $(whoami)"
-            echo "📁 Home: $HOME"
-            echo "📌 PATH: $PATH"
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
-            # Load environment (VERY IMPORTANT for bun/npm/pm2)
-            source ~/.bashrc || true
-            source ~/.profile || true
+            export BUN_DIR="$HOME/.bun"
+            export PATH="$BUN_DIR/bin:$PATH"
 
-            export PATH=$PATH:/root/.bun/bin:/root/.npm-global/bin
+            # load correct node version
+            nvm use default || nvm use node || true
 
-            echo "============================"
-            echo "🔧 Checking tools"
-            echo "============================"
-
-            node -v || echo "❌ Node missing"
-            npm -v || echo "❌ NPM missing"
-            bun -v || echo "❌ Bun missing"
-            pm2 -v || echo "❌ PM2 missing"
+            # ensure global node binaries (pm2 etc)
+            export PATH="$PATH:$HOME/.nvm/versions/node/v24.12.0/bin"
 
             echo "============================"
-            echo "📂 Moving to project"
+            echo "🔧 VERIFY TOOLS"
+            echo "============================"
+
+            node -v
+            npm -v
+            pm2 -v || npm i -g pm2
+            bun -v || echo "Bun missing"
+
+            echo "============================"
+            echo "📂 PROJECT"
             echo "============================"
 
             cd /var/www/websites/OnlineClock
@@ -62,27 +65,24 @@ jobs:
             git pull origin main
 
             echo "============================"
-            echo "📦 Installing dependencies"
+            echo "📦 INSTALL"
             echo "============================"
 
             npm install
 
             echo "============================"
-            echo "🏗️ Building project"
+            echo "🏗️ BUILD"
             echo "============================"
 
             npm run build || echo "No build step"
 
             echo "============================"
-            echo "🔁 Restarting PM2"
+            echo "🔁 PM2 RESTART"
             echo "============================"
 
             pm2 restart OnlineClock || pm2 start npm --name "OnlineClock" -- start
-
             pm2 save
 
             echo "============================"
             echo "✅ DEPLOY SUCCESS"
             echo "============================"
-
-            '
