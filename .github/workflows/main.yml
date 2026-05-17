@@ -17,7 +17,26 @@ jobs:
           port: ${{secrets.VPS_PORT}}
           password: ${{secrets.VPS_PASSWORD}}
           script: | 
-            echo "Connected to the vps"
+            echo "Connected to the VPS"
+
+            cd /var/www/websites/YourOnlineClock
+
+            echo "Restoring local changes..."
+            git reset --hard
+
+            echo "Pulling latest changes..."
+            git pull
+
+            echo "Installing dependencies..."
+            bun i
+
+            echo "Building project..."
+            bun run build
+
+            echo "Restarting PM2..."
+            pm2 restart 1
+
+            echo "Deployment complete!"
           
 
 
