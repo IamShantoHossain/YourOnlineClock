@@ -10,12 +10,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Test connection
+      - name: Test VPS connection
         run: |
           echo "Testing VPS connection..."
           nc -zv ${{ secrets.VPS_IP }} ${{ secrets.VPS_PORT }}
 
-      - name: Deploy via SSH
+      - name: Deploy to VPS
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.VPS_IP }}
@@ -27,59 +27,43 @@ jobs:
             set -e
 
             echo "============================"
-            echo "🚀 START DEPLOY"
+            echo "🚀 DEPLOY START"
             echo "============================"
 
-            # ============================
-            # 🔥 FORCE LOAD ENV (IMPORTANT FIX)
-            # ============================
-
+            # =========================
+            # LOAD NODE (NVM SAFE)
+            # =========================
             export NVM_DIR="$HOME/.nvm"
             [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
-            export BUN_DIR="$HOME/.bun"
-            export PATH="$BUN_DIR/bin:$PATH"
-
-            # load correct node version
             nvm use default || nvm use node || true
 
-            # ensure global node binaries (pm2 etc)
-            export PATH="$PATH:$HOME/.nvm/versions/node/v24.12.0/bin"
+            # =========================
+            # LOAD BUN (if exists)
+            # =========================
+            export BUN_INSTALL="$HOME/.bun"
+            export PATH="$BUN_INSTALL/bin:$PATH"
 
-            echo "============================"
-            echo "🔧 VERIFY TOOLS"
-            echo "============================"
+            echo "Node: $(node -v || echo 'missing')"
+            echo "NPM: $(npm -v || echo 'missing')"
+            echo "PM2: $(pm2 -v || echo 'missing')"
+            echo "BUN: $(bun -v || echo 'missing')"
 
-            node -v
-            npm -v
-            pm2 -v || npm i -g pm2
-            bun -v || echo "Bun missing"
-
-            echo "============================"
-            echo "📂 PROJECT"
-            echo "============================"
-
+            # =========================
+            # PROJECT
+            # =========================
             cd /var/www/websites/OnlineClock
 
             echo "📥 Pulling latest code..."
             git pull origin main
 
-            echo "============================"
-            echo "📦 INSTALL"
-            echo "============================"
-
+            echo "📦 Installing dependencies..."
             npm install
 
-            echo "============================"
-            echo "🏗️ BUILD"
-            echo "============================"
-
+            echo "🏗️ Building..."
             npm run build || echo "No build step"
 
-            echo "============================"
-            echo "🔁 PM2 RESTART"
-            echo "============================"
-
+            echo "🔁 Restarting PM2..."
             pm2 restart OnlineClock || pm2 start npm --name "OnlineClock" -- start
             pm2 save
 
