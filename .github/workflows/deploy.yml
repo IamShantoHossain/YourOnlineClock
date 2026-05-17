@@ -52,7 +52,7 @@ jobs:
             # =========================
             # PROJECT
             # =========================
-            cd /var/www/websites/OnlineClock
+            cd /var/www/websites/YourOnlineClock
 
             echo "📥 Pulling latest code..."
             git pull origin main
