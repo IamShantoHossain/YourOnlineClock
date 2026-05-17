@@ -10,6 +10,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Debug secrets (SAFE)
+        run: |
+          echo "🔍 VPS_IP = ${{ secrets.VPS_IP }}"
+          echo "🔍 VPS_USER = ${{ secrets.VPS_USER }}"
+          echo "🔍 VPS_PORT = ${{ secrets.VPS_PORT }}"
+
+      - name: Test SSH port connection
+        run: |
+          echo "Testing connection to VPS..."
+          nc -zv ${{ secrets.VPS_IP }} ${{ secrets.VPS_PORT }}
+
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -19,20 +30,39 @@ jobs:
           port: ${{ secrets.VPS_PORT }}
 
           script: |
-            set -e
+            echo "========================"
+            echo "🚀 CONNECTED TO VPS"
+            echo "========================"
+
+            echo "📍 Current user:"
+            whoami
+
+            echo "📍 Current directory:"
+            pwd
+
+            echo "📍 Node version:"
+            node -v || echo "Node not found"
+
+            echo "📍 Bun version:"
+            bun -v || echo "Bun not found"
+
+            echo "📍 PM2 status:"
+            pm2 list || echo "PM2 not found"
+
+            echo "========================"
+            echo "📦 DEPLOY START"
+            echo "========================"
 
             cd /var/www/websites/OnlineClock
 
-            echo "📥 Pulling latest code..."
             git pull origin main
 
-            echo "📦 Installing dependencies..."
             bun install || npm install
 
-            echo "🏗️ Building project..."
             bun run build || npm run build || echo "No build step"
 
-            echo "🔁 Restarting PM2..."
             pm2 restart OnlineClock || pm2 start npm --name "OnlineClock" -- start
 
-            echo "✅ Deployment successful"
+            echo "========================"
+            echo "✅ DEPLOY DONE"
+            echo "========================"
