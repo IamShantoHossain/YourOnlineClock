@@ -12,46 +12,79 @@ const timers = [
   {
     title: "Aesthetic Pomodoro Timer",
     description:
-      "Boost productivity with the proven Pomodoro Technique. Work in focused 25-minute intervals with beautiful themes.",
+      "Boost productivity with the tested Pomodoro technique. Work in focused 25-minute intervals with attractive themes.",
     icon: FaClock,
     href: "/aesthetic-pomodoro-timer",
     features: [
-      "25-minute focus sessions",
-      "Customizable breaks",
-      "Multiple aesthetic themes",
-      "Sound notifications",
+      "25-minute concentration intervals",
+      "Adjustable breaks",
+      "Various stylish themes",
+      "Audio alerts",
     ],
     color: "text-red-500",
   },
   {
     title: "Stopwatch",
     description:
-      "Track time with millisecond precision. Perfect for workouts, cooking, studying, and sports.",
+      "Track time with millisecond accuracy. Ideal for workouts, cooking, studying, and sports.",
     icon: FaStopwatch,
     href: "/stopwatch",
     features: [
-      "Millisecond precision",
-      "Start/Pause/Reset",
-      "Beautiful themes",
-      "Works offline",
+      "Millisecond accuracy",
+      "Start / Pause / Reset",
+      "Works without internet",
     ],
     color: "text-blue-500",
   },
   {
     title: "Multi-Timer",
     description:
-      "Run unlimited timers simultaneously. Ideal for managing multiple tasks, cooking, and interval training.",
+      "Run unlimited timers simultaneously. Suitable for managing multiple tasks, cooking, and interval training.",
     icon: FaRegClock,
     href: "/multi-timer",
     features: [
       "Unlimited timers",
-      "Custom durations",
-      "Preset timers",
-      "Individual controls",
+      "Adjustable time settings",
+      "Pre-made timers",
+      "Separate controls",
     ],
     color: "text-purple-500",
   },
 ];
+
+const features = [
+  {
+    icon: "🎨",
+    title: "Pretty Design",
+    description: "Beautiful stylish designs that make time tracking pleasant.",
+  },
+  {
+    icon: "⚡",
+    title: "Fast & Free",
+    description:
+      "Download-free, registration-free. Start timing immediately at youronlineclock.com.",
+  },
+  {
+    icon: "📱",
+    title: "Works Everywhere",
+    description:
+      "Use on every device - computer, tablet, or smartphone. Functions without internet.",
+  },
+  {
+    icon: "🎵",
+    title: "Fully Customizable",
+    description: "Many visual styles, sound choices, and custom settings.",
+  },
+];
+
+const seoContent = {
+  title: "Free Online Timers for Every Need",
+  paragraphs: [
+    "YourOnlineClock provides a suite of attractive, free online timers designed for efficiency, fitness training, cooking, studying, and more. A Pomodoro timer for boosting focus, a stopwatch for precise timing, and a multi-timer for handling multiple tasks are all available.",
+
+    "Our timers include stylish visual designs, work without internet after loading, and are completely free with no extra charges or memberships. Join thousands of users who rely on youronlineclock.com for their daily time needs. Experience the ideal combination of performance and attractive design today.",
+  ],
+};
 
 const Page = () => {
   return (
@@ -71,9 +104,9 @@ const Page = () => {
           <section className="space-y-4 text-center">
             <h1 className="text-4xl font-bold md:text-6xl">YourOnlineClock</h1>
             <p className="mx-auto max-w-2xl text-lg opacity-90 md:text-xl">
-              Beautiful, free online timers for every need. Track time with
-              style using our aesthetic Pomodoro timer, precision stopwatch, and
-              powerful multi-timer at youronlineclock.com.
+              Attractive,free online timers for every need.Time is tracked with
+              style by its aesthetic Pomodoro timer,precision stopwatch,and
+              strong multi-timer at youronlineclock.com.
             </p>
           </section>
 
@@ -123,48 +156,19 @@ const Page = () => {
             <h2 className="text-center text-3xl font-bold">
               Why Choose YourOnlineClock?
             </h2>
+
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-              <Card className="p-6 text-center">
-                <div className="space-y-2">
-                  <div className="text-4xl">🎨</div>
-                  <h3 className="text-lg font-semibold">Beautiful Design</h3>
-                  <p className="text-muted-foreground text-sm">
-                    Stunning aesthetic themes that make time tracking enjoyable
-                  </p>
-                </div>
-              </Card>
-
-              <Card className="p-6 text-center">
-                <div className="space-y-2">
-                  <div className="text-4xl">⚡</div>
-                  <h3 className="text-lg font-semibold">Fast & Free</h3>
-                  <p className="text-muted-foreground text-sm">
-                    No downloads, no signup. Start timing instantly at
-                    youronlineclock.com
-                  </p>
-                </div>
-              </Card>
-
-              <Card className="p-6 text-center">
-                <div className="space-y-2">
-                  <div className="text-4xl">📱</div>
-                  <h3 className="text-lg font-semibold">Works Everywhere</h3>
-                  <p className="text-muted-foreground text-sm">
-                    Use on any device - desktop, tablet, or mobile. Works
-                    offline too
-                  </p>
-                </div>
-              </Card>
-
-              <Card className="p-6 text-center">
-                <div className="space-y-2">
-                  <div className="text-4xl">🎵</div>
-                  <h3 className="text-lg font-semibold">Fully Customizable</h3>
-                  <p className="text-muted-foreground text-sm">
-                    Multiple themes, sound options, and personalized settings
-                  </p>
-                </div>
-              </Card>
+              {features.map((item, idx) => (
+                <Card key={idx} className="p-6 text-center">
+                  <div className="space-y-2">
+                    <div className="text-4xl">{item.icon}</div>
+                    <h3 className="text-lg font-semibold">{item.title}</h3>
+                    <p className="text-muted-foreground text-sm">
+                      {item.description}
+                    </p>
+                  </div>
+                </Card>
+              ))}
             </div>
           </section>
 
@@ -178,23 +182,11 @@ const Page = () => {
                 <Card className="p-8">
                   <div className="space-y-4">
                     <h2 className="text-2xl font-bold">
-                      Free Online Timers for Every Need
+                      Free Online for Every Need
                     </h2>
+                    <p className="text-muted-foreground">{seoContent.title}</p>
                     <p className="text-muted-foreground">
-                      YourOnlineClock offers a suite of beautiful, free online
-                      timers designed for productivity, fitness, cooking,
-                      studying, and more. Whether you need a Pomodoro timer to
-                      boost focus, a stopwatch for precise timing, or a
-                      multi-timer to juggle multiple tasks, we&apos;ve got you
-                      covered.
-                    </p>
-                    <p className="text-muted-foreground">
-                      Our timers feature stunning aesthetic themes, work offline
-                      after loading, and are completely free with no hidden
-                      costs or subscriptions. Join thousands of users who trust
-                      youronlineclock.com for their daily timing needs.
-                      Experience the perfect blend of functionality and
-                      beautiful design today.
+                      {seoContent.paragraphs}
                     </p>
                   </div>
                 </Card>

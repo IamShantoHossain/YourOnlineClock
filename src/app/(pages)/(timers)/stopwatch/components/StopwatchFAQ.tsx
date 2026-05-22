@@ -28,42 +28,53 @@ export const StopwatchFAQ = () => {
       {/* Why Use This Stopwatch */}
       <Card className="p-6">
         <h2 className="mb-4 text-2xl font-bold">
-          Why Use YourOnlineClock&apos;s Aesthetic Stopwatch?
+          Aesthetic Stopwatch – YourOnlineClock
         </h2>
+
+        <p className="text-muted-foreground mb-6">
+          Measure time accurately with YourOnlineClock’s attractive,
+          feature-packed stopwatch. Perfect for exercise, cooking, learning,
+          sports, and any activity that needs exact time tracking at
+          youronlineclock.com.
+        </p>
+
         <div className="space-y-4">
           <div className="space-y-2">
             <h3 className="text-lg font-semibold">🎨 Beautiful Design</h3>
             <p className="text-muted-foreground">
-              Enjoy a visually stunning interface with carefully crafted
-              aesthetic themes that make time tracking a pleasure. Our beautiful
-              backgrounds create an inspiring environment for any activity.
+              Enjoy a visually attractive interface with carefully designed
+              aesthetic themes that make time tracking enjoyable. Our elegant
+              backgrounds create a motivating environment for every activity.
             </p>
           </div>
+
           <div className="space-y-2">
             <h3 className="text-lg font-semibold">⏱️ Precise Timing</h3>
             <p className="text-muted-foreground">
-              Track time with millisecond precision. Perfect for sports
-              training, cooking, interval workouts, studying, or any activity
-              where accurate time measurement matters.
+              Measure time with millisecond accuracy. Ideal for sports practice,
+              cooking, interval exercise, studying, or any activity where exact
+              time measurement is important.
             </p>
           </div>
+
           <div className="space-y-2">
             <h3 className="text-lg font-semibold">📱 Works Everywhere</h3>
             <p className="text-muted-foreground">
-              Use YourOnlineClock on any device - desktop, tablet, or mobile. No
-              app installation required. Just visit youronlineclock.com and
-              start timing immediately.
+              Use YourOnlineClock on any device—desktop, tablet, or mobile. No
+              application installation is needed. Simply visit
+              youronlineclock.com and begin timing instantly.
             </p>
           </div>
+
           <div className="space-y-2">
             <h3 className="text-lg font-semibold">
               🎵 Customizable Experience
             </h3>
             <p className="text-muted-foreground">
-              Choose from multiple aesthetic themes, toggle milliseconds
-              display, enable sound notifications, and personalize your
-              stopwatch experience. Make it truly yours with settings that match
-              your needs.
+              Select from different aesthetic themes, switch milliseconds
+              display on or off, activate sound alerts, and personalize your
+              stopwatch experience. Make it completely your own with settings
+              that suit your preferences.
             </p>
           </div>
         </div>
@@ -190,20 +201,22 @@ export const StopwatchFAQ = () => {
           <h2 className="mb-4 text-xl font-bold">
             YourOnlineClock - Perfect for Every Timing Need
           </h2>
+
           <p className="text-muted-foreground mb-4">
             Whether you&apos;re an athlete tracking performance, a chef timing
-            recipes, a student measuring study efficiency, or anyone needing
-            precise time measurement, YourOnlineClock&apos;s aesthetic stopwatch
-            is designed for you. The combination of accurate timing and
-            beautiful design at youronlineclock.com creates an optimal
-            experience for any timing activity.
+            recipes, a student measuring study efficiency, or anyone who needs
+            precise time measurement, YourOnlineClock’s aesthetic stopwatch is
+            designed for you. The combination of accurate timing and beautiful
+            design at youronlineclock.com creates an optimal experience for any
+            timing activity.
           </p>
+
           <p className="text-muted-foreground">
-            Start using YourOnlineClock&apos;s free stopwatch today at
-            youronlineclock.com and experience the difference that precision
-            timing with beautiful design can make. Join thousands of users who
-            trust YourOnlineClock for their daily timing needs with our elegant,
-            accurate, and easy-to-use aesthetic stopwatch.
+            Begin using YourOnlineClock’s free stopwatch today at
+            youronlineclock.com and feel the difference that accurate timing
+            with attractive design can create. Join thousands of users who rely
+            on YourOnlineClock for their daily timing needs with our elegant,
+            precise, and easy-to-use aesthetic stopwatch.
           </p>
         </Card>
       </section>
